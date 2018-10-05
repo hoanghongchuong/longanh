@@ -52,9 +52,9 @@
               <tr>
                 <th style="width: 20px;"><input type="checkbox" name="chonhet" class="minimal" id="chonhet" /></th>
                 <th class="text-center with_dieuhuong">Stt</th>
-                @if($_GET['type']=='tin-tuc')
+                <!-- @if($_GET['type']=='tin-tuc')
                 <th>Danh mục cha</th>
-                @endif
+                @endif -->
                 <th>Tên danh mục</th>
                 <!-- <th class="text-center with_dieuhuong">Hiển thị</th> -->
                 <th class="text-center with_dieuhuong">Sửa</th>
@@ -66,7 +66,7 @@
               <tr>
                 <td><input type="checkbox" name="chon" id="chon" value="{{$item->id}}" class="chon" /></td>
                 <td class="text-center with_dieuhuong">{{$k+1}}</td>
-                @if($_GET['type']=='tin-tuc')
+                <!-- @if($_GET['type']=='tin-tuc')
                 <td>
                   <?php  $parent = DB::table('news_categories')->where('id', $item->parent_id)->where('com', @$_GET['type'])->first();
                   ?>
@@ -76,9 +76,9 @@
                     {{ 'None' }}
                   @endif
                 </td>
-                @endif
+                @endif -->
                 <td>{{$item->name}}<br>
-                 <a href=" {{url('tin-tuc/'.$item->alias)}}" title=""> {{url('tin-tuc/'.$item->alias)}}</a>
+                 <!-- <a href=" {{url('tin-tuc/'.$item->alias)}}" title=""> {{url('tin-tuc/'.$item->alias)}}</a> -->
                </td>
                 <!-- <td class="text-center with_dieuhuong">
                   @if($item->status>0)

@@ -28,7 +28,7 @@
       			<div class="nav-tabs-custom">
 	                <ul class="nav nav-tabs">
 	                  	<li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">Thông tin chung</a></li>
-	                  	<li><a href="#tab_3" data-toggle="tab" aria-expanded="true">Tiếng anh</a></li>
+	                  	<li><a href="#tab_3" data-toggle="tab" aria-expanded="true">tiếng nhật</a></li>
 	                  	<li><a href="#tab_2" data-toggle="tab" aria-expanded="true">SEO</a></li>
 	                </ul>
 	                <div class="tab-content">
@@ -43,7 +43,7 @@
 								      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('fImages'); !!}</label>
 								      	@endif
 									</div> -->
-			                    	<div class="form-group">
+			                    	<div class="form-group hidden">
 								      	<label for="ten">Danh mục cha</label>
 								      	<select name="txtNewsCate" class="form-control">
 
@@ -59,7 +59,7 @@
 								      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('txtName'); !!}</label>
 								      	@endif
 									</div>
-									<div class="form-group hidden @if ($errors->first('txtAlias')!='') has-error @endif">
+									<div class="form-group @if ($errors->first('txtAlias')!='') has-error @endif">
 								      	<label for="alias">Đường dẫn tĩnh</label>
 								      	<input type="text" name="txtAlias" id="txtAlias" value=""  class="form-control" />
 								      	@if ($errors->first('txtAlias')!='')

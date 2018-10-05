@@ -1,10 +1,8 @@
 @extends('index')
 @section('content')
 <?php
-    $setting = Cache::get('setting');
-    $lang = Cache::get('lang');
-    $biendich = Cache::get('biendich');
-    $about = DB::table('about')->where('com', 'gioi-thieu')->first();
+    $setting = Cache::get('setting');    
+    $banner = DB::table('banner_content')->where('position', 5)->first();
 ?>
 <section class="about-us">
     <div class="container">

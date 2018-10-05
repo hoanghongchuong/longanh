@@ -25,7 +25,7 @@
         		
       			<div class="row">
               		<div class="col-md-6 col-xs-12">
-              			@if($_GET['type']='tieu-chi')
+              			@if($_GET['type']!='thong-tin')
 						<div class="form-group @if ($errors->first('fImages')!='') has-error @endif">
 							<div class="form-group">
 								<img src="{{ asset('upload/hinhanh/'.$data->photo) }}" onerror="this.src='{{asset('public/admin_assets/images/no-image.jpg')}}'" style="max-height: 200px;" class="img-responsive"  alt="NO PHOTO" />
@@ -47,12 +47,21 @@
 					      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('txtName'); !!}</label>
 					      	@endif
 						</div>
-						@if($_GET['type']='tieu-chi')
+						@if($_GET['type']=='thong-tin' || $_GET['type']=='the-manh')
+						<div class="form-group @if ($errors->first('txtName')!='') has-error @endif">
+					      	<label for="ten">Tên tiếng nhật</label>
+					      	<input type="text" id="txtName" name="name_en" value="{{ $data->name_en }}"  class="form-control" />
+					      	@if ($errors->first('txtName')!='')
+					      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('txtName'); !!}</label>
+					      	@endif
+						</div>
+						@endif
+						<!-- @if($_GET['type']!='the-manh')
 						<div class="form-group">
 					      	<label for="alias">Đường dẫn tĩnh</label>
 					      	<input type="text" name="txtLink" id="txtLink" value="{{ $data->link }}"  class="form-control" />
 						</div>
-						@endif
+						@endif -->
 						@if($_GET['type']=='chuyen-muc')
 						<div class="form-group">
 							Link cơ bản: quang-cao, thu-vien-hinh, tim-kiem, dich-vu, tin-tuc, hoi-vien, lien-he, index 
@@ -66,7 +75,7 @@
 						@endif -->
 					</div>
 					<div class="col-md-12 col-xs-12">
-						@if($_GET['type']=='chi-nhanh')
+						@if($_GET['type']!='thu-vien')
 						<div class="box box-info">
 			                <div class="box-header">
 			                  	<h3 class="box-title">Nội dung</h3>
@@ -77,6 +86,20 @@
 			                </div>
 			                <div class="box-body pad">
 			        			<textarea name="txtContent" id="txtContent" cols="50" rows="5">{{ $data->content }}</textarea>
+			        		</div>
+			        	</div>
+			        	@endif
+			        	@if($_GET['type']=='thong-tin' || $_GET['type']=='the-manh')
+						<div class="box box-info">
+			                <div class="box-header">
+			                  	<h3 class="box-title">Nội dung tiếng nhật</h3>
+			                  	<div class="pull-right box-tools">
+				                    <button class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+				                    <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+				                </div>
+			                </div>
+			                <div class="box-body pad">
+			        			<textarea name="content_en" id="txtContent" cols="50" rows="5">{{ $data->content_en }}</textarea>
 			        		</div>
 			        	</div>
 			        	@endif

@@ -1,67 +1,76 @@
 @extends('index')
 @section('content')
-
 <?php
     $setting = Cache::get('setting');
-    $about = Cache::get('about');
-    $lang = Cache::get('lang');
-    $biendich = Cache::get('biendich');
+    $lang = Session::get('locale');
 ?>
-<section class="banner">
-    <img src="{{ asset('public/images/picture/banner-12.jpg')}}" alt="" title="">
-</section>
-<section class="news news-details pd-60">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="news-detail">
-                    <h1>@if($lang == 'vi') {{ $news_detail->name }} @elseif($lang == 'en') {{ $news_detail->name_en }} @endif</h1>
-                    <p class="date">Upload: {{ date('d/m/Y', strtotime($news_detail->created_at)) }}</p>
-                    <div class="news-image"><img src="{{asset('upload/news/'.$news_detail->photo)}}" alt="@if($lang == 'vi') {{ $news_detail->name }} @elseif($lang == 'en') {{ $news_detail->name_en }} @endif" title="@if($lang == 'vi') {{ $news_detail->name }} @elseif($lang == 'en') {{ $news_detail->name_en }} @endif"> </div>
-                    <p>@if($lang == 'vi') {!! $news_detail->content !!} @elseif($lang == 'en') {!! $news_detail->content_en !!} @endif</p>
+<main class="">
+    <section class="banner">
+        <div class="container">
+            <div class="banner-wrap">
+                <img src="{{ asset('public/images/5.jpg')}}" alt="">
+                <h2 class="medium s30 text-center text-white text-uppercase banner-tit">@if($lang =='vi') {{$news_detail->name}} @elseif($lang =='jp') {{$news_detail->name_en}} @endif</h2>
+            </div>
+            <ul class="list-unstyled s14 bread">
+                <li><a href="{{url('')}}" title="">{{ __('label.home') }}</a></li>
+                <li><a href="#" title="">@if($lang =='vi') {{$category->name}} @elseif($lang =='jp') {{$category->name_en}} @endif</a></li>
+                <li>@if($lang =='vi') {{$news_detail->name}} @elseif($lang =='jp') {{$news_detail->name_en}} @endif</li>
+            </ul>
+        </div>
+    </section>
+    <div class="bdetail">
+        <div class="container">
+            <h1 class="medium s24 t3 bdetail-tit">@if($lang =='vi') {{$news_detail->name}} @elseif($lang =='jp') {{$news_detail->name_en}} @endif</h1>
+            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                <h3 class="medium s14 t1 blog-item-time">{{date('d/m/Y', strtotime($news_detail->created_at))}}</h3>
+                <div class="bdetail-like">
+                    <p>
+                      <!-- AddThis Button BEGIN -->
+                      <div class="addthis_toolbox addthis_default_style" style="margin-top:10px;">
+                      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                      <a class="addthis_button_tweet"></a>
+                      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+                      <a class="addthis_counter addthis_pill_style"></a>
+                      </div>
+                      <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
+                      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52843d4e1ff0313a"></script>
+                   </p>
+                </div>
+            </div>            
+            <div class="content bdetail-content">                
+                @if($lang =='vi') {!! $news_detail->content !!} @elseif($lang =='jp') {!! $news_detail->content !!} @endif
+            </div>
+
+            <h2 class="s18 medium bdetail-retit">{{ __('label.lienquan') }}</h2>
+            @foreach($newsSamCate as $item)
+            <div class="bdetail-re-item">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-5">
+                        <div class="bdetail-re-item-img">
+                            <a href="{{ url('/'.$category->alias.'/'.$item->alias.'.html') }}" title="@if($lang =='vi'){{ $item->name }} @elseif($lang =='jp') {{ $item->name_en }}  @endif">
+                                @if($lang =='vi')
+                                <img src="{{ asset('upload/news/'.$item->photo)}}" alt="" title="">
+                                @elseif($lang =='jp')
+                                <img src="{{ asset('upload/news/'.$item->photo_en)}}" alt="" title="">
+                                @endif
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-7">
+                        <div class="bdetail-re-item-content">
+                            <h3 class="medium s18 pb-4 bdetail-re-item-tit">
+                                <a href="{{ url('/'.$category->alias.'/'.$item->alias.'.html') }}" title="@if($lang =='vi'){{ $item->name }} @elseif($lang =='jp') {{ $item->name_en }}  @endif">@if($lang =='vi'){{ $item->name }} @elseif($lang =='jp') {{ $item->name_en }}  @endif</a>
+                            </h3>
+
+                            <p>@if($lang =='vi') {!! $item->mota !!} @elseif($lang =='jp') {!! $item->mota_en !!} @endif</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="position-sticky">
-                    <div class="search mgb-20">
-                        <h5>TÌM KIẾM</h5>
-                        <form>
-                            <input type="text" placeholder="">
-                            <button type="submit"><i class="fa fa-search"></i> </button>
-                        </form>
-                    </div>
-                    <div class="news-hot mgb-20">
-                        <h5>TIN NỔI BẬT</h5>
-                        <ul class="ul-block">
-                            @foreach($hot_news as $hot)
-                            <li>
-                                <div class="block-hori">
-                                    <div class="hori-left">
-                                        <a href="{{ url('tin-tuc/'.$hot->alias.'.html') }}" title=""><img src="{{asset('upload/news/'.$hot->photo)}}" alt="" title=""> </a>
-                                    </div>
-                                    <div class="hori-right">
-                                        <p><a href="{{ url('tin-tuc/'.$hot->alias.'.html') }}" title="">@if($lang == 'vi') {{$hot->name}} @elseif($lang == 'en') {{$hot->name_en}} @endif</a> </p>
-                                        <p class="date">Upload: {{date('d/m/Y', strtotime($hot->created_at))}}</p>
-                                    </div>
-                                </div>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <div class="galery">
-                        <h5>@if($lang == 'vi') THƯ VIỆN ẢNH @elseif($lang == 'en') GALLERIES @endif</h5>
-                        <ul class="flex-center">
-                            <?php $gallaries = DB::table('lienket')->where('com','thu-vien')->get(); ?>
-                            @foreach($gallaries as $g)
-                            <li>
-                                <a href="{{ asset('upload/hinhanh/'.$g->photo) }}" data-fancybox="images"><img src="{{ asset('upload/hinhanh/'.$g->photo) }}" alt="" title="" /></a>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+            
+
         </div>
     </div>
-</section>
+</main>
 @endsection

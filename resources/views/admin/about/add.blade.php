@@ -34,22 +34,23 @@
 	                  	<div class="tab-pane active" id="tab_1">
 	                  		<div class="row">
 		                  		<div class="col-md-6 col-xs-12">
-			                    	<!-- @if (count($errors) > 0)
+			                    	@if (count($errors) > 0)
 						        		<div class="form-group has-error">
 						        			@foreach ($errors->all() as $error)
 						        			<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $error !!}</label><br>
 						        			@endforeach
 						        		</div>
-						        	@endif -->
-									<!-- <div class="form-group col-md-12 @if ($errors->first('fImages')!='') has-error @endif">
+						        	@endif
+						        	@if($_GET['type']=='the-manh')
+									<div class="form-group col-md-12 @if ($errors->first('fImages')!='') has-error @endif">
 										<label for="file">File ảnh</label>
 								     	<input type="file" id="file" name="fImages" >
 								    	<p class="help-block">Width:225px - Height: 162px</p>
 								    	@if ($errors->first('fImages')!='')
 								      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('fImages'); !!}</label>
 								      	@endif
-									</div> -->
-									
+									</div>
+									@endif
 									<div class="clearfix"></div>
 									<!-- @if($_GET['type']=='bai-viet' || $_GET['type']=='khong-gian')
 									<div class="form-group">
@@ -62,25 +63,28 @@
 									</div>
 									@endif -->
 							    	<div class="form-group @if ($errors->first('txtName')!='') has-error @endif">
-								      	<label for="ten">Tên</label>
+								      	<label for="ten">Tên tiếng việt</label>
 								      	<input type="text" id="txtName" name="txtName" value=""  class="form-control" />
 								      	@if ($errors->first('txtName')!='')
 								      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('txtName'); !!}</label>
 								      	@endif
 									</div>
-									
-									<div class="form-group @if ($errors->first('txtAlias')!='') has-error @endif">
+									<div class="form-group">
+								      	<label for="ten">Tên(tiếng nhật)</label>
+								      	<input type="text" name="name_en" id="" value=""  class="form-control" />
+									</div>
+									<!-- <div class="form-group @if ($errors->first('txtAlias')!='') hidden has-error @endif">
 								      	<label for="alias">Đường dẫn tĩnh</label>
 								      	<input type="text" name="txtAlias" id="txtAlias" value=""  class="form-control" />
 								      	@if ($errors->first('txtAlias')!='')
 								      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('txtAlias'); !!}</label>
 								    	@endif
-									</div>
+									</div> -->
 
-									<div class="form-group">
+									<!-- <div class="form-group">
 								      	<label for="desc">Mô tả</label>
 								      	<textarea name="txtDesc" id="txtContent" rows="5" class="form-control"></textarea>
-									</div>
+									</div> -->
 									
 									<input type="hidden" name="txtCom" value="{{ @$_GET['type'] }}"/>
 									
@@ -113,6 +117,21 @@
 				        			<textarea name="txtContent" id="txtContent" cols="50" rows="5"></textarea>
 				        		</div>
 				        	</div>
+
+				        	<div class="col-md-12 col-xs-12">
+								<div class="box box-info">
+					                <div class="box-header">                                               
+					                  	<h3 class="box-title">Nội dung(tiếng nhật)</h3>
+					                  	<div class="pull-right box-tools">
+						                    <button class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+						                    <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+						                </div>
+					                </div>
+					                <div class="box-body pad">
+					        			<textarea name="content_en" id="txtContent" cols="50" rows="5"></textarea>
+					        		</div>
+					        	</div>
+							</div>
 	                    	<div class="clearfix"></div>
 	                	</div><!-- /.tab-pane -->
 	                	<div class="tab-pane" id="tab_3">
@@ -131,6 +150,20 @@
 								      	<textarea name="txtDescription" rows="5" class="form-control"></textarea>
 									</div>
 		                    	</div>
+		                    	<div class="col-md-6 col-xs-12">
+		                    		<div class="form-group">
+								      	<label for="keyword">Title tiếng nhật</label>
+								      	<input name="title_en" rows="5" class="form-control" value="" />
+									</div>
+		                    		<div class="form-group">
+								      	<label for="keyword">Keyword tiếng nhật</label>
+								      	<textarea name="keyword_en" rows="5" class="form-control"></textarea>
+									</div>
+									<div class="form-group">
+								      	<label for="description">Description tiếng nhật</label>
+								      	<textarea name="description_en" rows="5" class="form-control"></textarea>
+									</div>
+		                    	</div>
 	                    	</div>
 	                    	<div class="clearfix"></div>
 	                	</div><!-- /.tab-pane -->
@@ -141,8 +174,7 @@
 			    	<div class="form-group">
 					      <label for="ten">Số thứ tự</label>
 					      <input type="number" min="1" name="stt" value="{!! count($data)+1 !!}" class="form-control" style="width: 100px;">
-				    </div>
-				    
+				    </div>				    
 				    <div class="form-group">
 					    <label>
 				        	<input type="checkbox" name="status" checked="checked"> Hiển thị

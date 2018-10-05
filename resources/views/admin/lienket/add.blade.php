@@ -25,7 +25,7 @@
         		<input type="hidden" name="_token" value="{!! csrf_token() !!}" />
         		<input type="hidden" name="txtCom" value="{{ @$_GET['type'] }}"/>
           		<div class="col-md-6 col-xs-12">
-          			
+          			@if($_GET['type']!='thong-tin')
 					<div class="form-group col-md-12 @if ($errors->first('fImages')!='') has-error @endif">
 						<label for="file">File ảnh</label>
 				     	<input type="file" id="file" name="fImages" >
@@ -34,18 +34,27 @@
 				      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('fImages'); !!}</label>
 				      	@endif
 					</div>
-					
+					@endif
 					<div class="clearfix"></div>
 			    	<div class="form-group @if ($errors->first('txtName')!='') has-error @endif">
-				      	<label for="ten">Tên</label>
+				      	<label for="ten">Tên tiếng việt</label>
 				      	<input type="text" id="txtName" name="txtName" value=""  class="form-control" />
 				      	@if ($errors->first('txtName')!='')
 				      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('txtName'); !!}</label>
 				      	@endif
 					</div>
-					@if($_GET['type']='tieu-chi')
+					@if($_GET['type']=='thong-tin' || $_GET['type']=='the-manh')
+					<div class="form-group @if ($errors->first('txtName')!='') has-error @endif">
+				      	<label for="ten">Tên tiếng nhật</label>
+				      	<input type="text" id="txtName" name="name_en" value=""  class="form-control" />
+				      	@if ($errors->first('txtName')!='')
+				      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('txtName'); !!}</label>
+				      	@endif
+					</div>
+					@endif
+					@if($_GET['type']=='tieu-chi')
 					<div class="form-group">
-				      	<label for="alias">Link liên kết</label>
+				      	<label for="alias">Đường dẫn tĩnh</label>
 				      	<input type="text" name="txtLink" id="txtLink" value=""  class="form-control" />
 					</div>
 
@@ -64,10 +73,10 @@
 
 				</div>
 				<div class="col-md-12 col-xs-12">
-					@if($_GET['type']=='chi-nhanh')
+					@if($_GET['type']!='thu-vien')
 					<div class="box box-info">
 		                <div class="box-header">
-		                  	<h3 class="box-title">Nội dung</h3>
+		                  	<h3 class="box-title">Nội dung tiếng việt</h3>
 		                  	<div class="pull-right box-tools">
 			                    <button class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
 			                    <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -78,6 +87,20 @@
 		        		</div>
 		        	</div>
 					@endif
+					@if($_GET['type']=='thong-tin' || $_GET['type']=='the-manh')
+					<div class="box box-info">
+		                <div class="box-header">
+		                  	<h3 class="box-title">Nội dung tiếng nhật</h3>
+		                  	<div class="pull-right box-tools">
+			                    <button class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+			                    <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+			                </div>
+		                </div>
+		                <div class="box-body pad">
+		        			<textarea name="content_en" id="txtContent" cols="50" rows="5"></textarea>
+		        		</div>
+		        	</div>
+		        	@endif
 				</div>
 	            <div class="clearfix"></div>
 			    <div class="col-md-6">
@@ -90,15 +113,14 @@
 					    <label>
 				        	<input type="checkbox" name="status" checked="checked"> Hiển thị
 				    	</label>
-				    </div>
-			    	
+				    </div>			    	
 			    </div>			    
 				<div class="clearfix"></div>
 			    <div class="box-footer">
 			    	<div class="row">
 						<div class="col-md-6">
 					    	<button type="submit" class="btn btn-primary">Lưu</button>
-					    	<button type="button" onclick="javascript:window.location='backend/lienket?type={{ @$_GET[type] }}'" class="btn btn-danger">Thoát</button>
+					    	<!-- <button type="button" onclick="javascript:window.location='backend/lienket?type={{ @$_GET[type] }}'" class="btn btn-danger">Thoát</button> -->
 				    	</div>
 			    	</div>
 			  	</div>

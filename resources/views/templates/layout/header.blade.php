@@ -1,54 +1,186 @@
 <?php
     $setting = Cache::get('setting');
-    $menu_top = Cache::get('menu_top');
-    $cateProducts = Cache::get('cateProducts');
-    $about = Cache::get('about');
-    $gioithieu = DB::table('gioithieu')->orderBy('id','desc')->get();
-    $lang = Cache::get('lang');
-    $biendich = Cache::get('biendich');
-    // dd($com);
+    $categories_news = DB::table('news_categories')->where('com', 'tin-tuc')->get();
+    $cate_daotao = DB::table('news_categories')->where('com', 'dao-tao')->get();
+    $cate_requiment = DB::table('news_categories')->where('com', 'tuyen-dung')->get();
+    $lang = Session::get('locale');
 ?>
-
-<header>
-    <section class="header">
+@if($lang == 'vi')
+<header class="fixed-top top">
+    <div class="b1 top-first">
         <div class="container">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="logo">
-                        <a href="{{url('')}}" title=""><img src="{{asset('upload/hinhanh/'.$setting->photo)}}" alt="" title=""> </a>
-                        <div class="language flex">
-                            <a href="{{ url('langs/vi') }}" title=""><img src="{{ asset('public/images/icon/icon-vn.png')}}" alt="" title=""> </a>
-                            <a href="{{ url('langs/en') }}" title=""><img src="{{ asset('public/images/icon/icon-eng.png')}}" alt="" title=""> </a>
-                        </div>
-                        <a id="cd-menu-trigger" href="#0" class=""><span class="cd-menu-icon"></span></a>
-                    </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="s14 f1 t2 tfirst-call">
+                    <a href="tel:{{$setting->phone}}" title=""><img src="{{ asset('public/images/phone.png')}}" title="" alt=""> <span class="ml-2">{{$setting->phone}}</span></a>
                 </div>
-                <div class="col-md-10 visible-desktop">
-                    <div class="header-nav flex">
-                        <ul class="flex">
-                            <li @if(@$com=='index') class="active" @endif><a href="{{url('')}}" title="">@if($lang == 'vi') {{$biendich[0]->name_vi}} @elseif($lang == 'en') {{$biendich[0]->name_en}}  @endif</a> </li>
-                            <li @if(@$com=='phong') class="active" @endif><a href="{{url('phong')}}" title="">@if($lang == 'vi') phòng @elseif($lang == 'en') room  @endif</a> </li>
-                            <li @if(@$com=='bar') class="active" @endif><a href="{{url('bar')}}" title="">@if($lang == 'vi') bar nhà hàng @elseif($lang == 'en') bar restaurant  @endif</a> </li>
-                            <li @if(@$com=='dich-vu') class="active" @endif>
-                                <a href="{{url('dich-vu')}}" title="">@if($lang == 'vi') {{$biendich[8]->name_vi}} @elseif($lang == 'en') {{$biendich[8]->name_en}}  @endif</a>
-                                <ul class="menu-sub">
-                                    <?php $service = DB::table('news')->where('com','dich-vu')->where('status',1)->get(); ?>
-                                    @foreach($service as $s)
-                                    <li><a href="{{url('dich-vu/'.$s->alias.'.html')}}" title="">@if($lang == 'vi') {{$s->name}} @elseif($lang == 'en') {{$s->name_en}}  @endif</a> </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                            <li @if(@$com=='tin-tuc') class="active" @endif><a href="{{url('tin-tuc')}}" title="">@if($lang == 'vi') {{$biendich[3]->name_vi}} @elseif($lang == 'en') {{$biendich[3]->name_en}}  @endif</a> </li>
-                            <li @if(@$com=='lien-he') class="active" @endif><a href="{{url('lien-he')}}" title="">@if($lang == 'vi') {{$biendich[4]->name_vi}} @elseif($lang == 'en') {{$biendich[4]->name_en}}  @endif</a> </li>
-                            <li><a href="" title=""  data-toggle="modal" data-target="#register-modal"><span><i class="fa fa-angle-right"></i> @if($lang == 'vi') Đặt phòng @elseif($lang == 'en') Book room  @endif</span></a> </li>
-                        </ul>
-                        <div class="language flex">
-                            <a href="{{ url('langs/vi') }}" title=""><img src="{{ asset('public/images/icon/icon-vn.png')}}" alt="" title=""> </a>
-                            <a href="{{ url('langs/en') }}" title=""><img src="{{ asset('public/images/icon/icon-eng.png')}}" alt="" title=""> </a>
+                <div class="s12 t2 d-flex align-items-center tfirst-control">
+                    <div class="tf-control-search">
+                        <a href="#" title="" data-toggle="dropdown" class=""> Tìm kiếm <img class="ml-2" src="{{ asset('public/images/search.png')}}" alt="" title=""></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-item d-flex align-items-center cart-top-item">
+                                <form action="{{ route('search') }}" class="search-frm">
+                                    <input type="text" required="required" name="txtSearch" class="form-control" placeholder="Tìm kiếm...">
+                                    <button type="submit" class="btn">Tìm kiếm</button>
+                                </form>
+                            </div>
                         </div>
+                    </div>
+                    <div class="tf-control-lan">
+                        <a aria-label="Tiếng Việt" href="{{url('langs/vi')}}" title=""><img src="{{ asset('public/images/vn.png')}}" title="" alt=""></a>
+                        <a aria-label="Tiếng Nhật" href="{{url('langs/jp')}}" title=""><img src="{{ asset('public/images/jp.png')}}" title="" alt=""></a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+    <div class="container">
+        <div class="w-100 d-flex align-items-center justify-content-between top-menu">
+            <div class="d-lg-none d-flex align-items-center justify-content-between top-menu-btn">
+                <!-- hamburger menu -->
+                <a id="nav-icon" href="#menu" class="">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+                <!-- logo -->
+                <a aria-label="IVY Hr" href="{{url('')}}" title=""><img src="{{asset('upload/hinhanh/'.$setting->photo)}}" alt="" title="" class="logo"></a>
+            </div>            
+            <!-- menu -->
+            <nav id="menu" class="menu-wrap">   
+                <ul class="menu medium text-uppercase">
+                    <li class="@if(@$com == 'index')active @endif"><a href="{{url('')}}" title="">Trang chủ</a></li>
+                    <li class="@if(@$com == 'gioi-thieu')active @endif"><a href="javascript:0;" title="">Giới thiệu</a>
+                        <ul>
+                            <li><a href="{{url('thu-ngo')}}" title="">Thư ngỏ</a></li>
+                            <li><a href="{{url('thong-tin-cong-ty')}}" title="">Thông tin công ty</a></li>
+                            <li><a href="{{url('the-manh')}}" title="">Thế mạnh</a></li>
+                        </ul>
+                    </li>
+                    <li class="@if(@$com == 'xuat-khau')active @endif"><a href="{{url('xuat-khau-lao-dong')}}" title="">Xuất khẩu lao động</a></li>
+                    <li><a href="javascript:0;" title="">Tuyển dụng</a>
+                        @if(count($cate_requiment) > 0)
+                        <ul class="">
+                            @foreach($cate_requiment as $cate_re)
+                            <li><a href="{{url('/'.$cate_re->alias)}}" title="{{ $cate_re->name }}">{{ $cate_re->name }}</a></li>
+                            @endforeach
+                        </ul>
+                        @endif
+                    </li>
+                    <li class="d-lg-inline-block d-none logo"><a aria-label="IVY Hr" href="{{url('')}}" title=""><img src="{{asset('upload/hinhanh/'.$setting->photo)}}" alt="" title=""></a></li>
+                    <li class="@if(@$com == 'dao-tao')active @endif"><a href="javascript:0;" title="">Đào tạo</a>
+                        <ul class="">
+                            @foreach($cate_daotao as $daotao)
+                            <li><a href="{{url('/'.$daotao->alias)}}" title="">{{$daotao->name}}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+                    <li class="@if(@$com == 'gallery')active @endif"><a href="javascript:0;" title="">Ảnh - Video</a>
+                        <ul class="">
+                            <li><a href="{{url('gallery')}}" title="">Album ảnh</a></li>
+                            <li><a href="{{url('video')}}" title="">Video</a></li>
+                        </ul>
+                    </li>
+                    <li class="@if(@$com == 'tin-tuc')active @endif"><a href="javascript:0;" title="">Tin tức</a>
+                        @if(count($categories_news) > 0)
+                        <ul class="">
+                            @foreach($categories_news as $cate_news)
+                            <li><a href="{{url('/'.$cate_news->alias)}}" title="{{$cate_news->name}}">{{$cate_news->name}}</a></li>
+                            @endforeach
+                        </ul>
+                        @endif
+                    </li>
+                    <li class="@if(@$com == 'faq')active @endif"><a href="{{url('faq')}}" title="">{{ __('label.faq') }}</a></li>
+                    <li class="@if(@$com == 'lien-he')active @endif"><a href="{{url('lien-he')}}" title="">{{ __('label.lienhe') }}</a></li>
+                </ul>
+            </nav>
+
+
+        </div>
+    </div>
 </header>
+@elseif($lang =='jp')
+<header class="fixed-top japan">
+    <div class="container">
+        <div class="w-100 d-flex align-items-lg-baseline align-items-center justify-content-between top-menu">
+            <div class="d-lg-none d-flex align-items-center justify-content-between top-menu-btn">
+                <!-- hamburger menu -->
+                <a id="nav-icon" href="#menu" class="">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+                <!-- logo -->
+                <a href="{{url('')}}" title=""><img src="{{asset('upload/hinhanh/'.$setting->photo)}}" alt="" title="" class="logo"></a>
+            </div>
+            
+            <!-- menu -->
+            <nav id="menu" class="menu-wrap">   
+                <ul class="menu medium text-uppercase">
+                    <li class="active"><a href="{{url('')}}" title="">ホーム</a></li>
+                    <li><a href="javascript:0;" title="">について</a>
+                        <ul>
+                            <li><a href="{{ url('thu-ngo') }}" title="">公開書簡</a></li>
+                            <li><a href="{{url('thong-tin-cong-ty')}}" title="">会社情報</a></li>
+                            <li><a href="{{url('the-manh')}}" title="">強さ</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{url('xuat-khau-lao-dong')}}" title="">外国人技能実習制度とは</a></li>
+                    
+                    <li><a href="javascript:0;" title="">実習生研修活動</a>
+                        <ul class="">
+                            @foreach($cate_daotao as $daotao)
+                            <li><a href="{{url('/'.$daotao->alias)}}" title="">{{$daotao->name_en}}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+                    <li><a href="javascript:0;" title="">画像 ・ 動画</a>
+                        <ul class="">
+                            <li><a href="{{url('gallery')}}" title="">フォトアルバム</a></li>
+                            <li><a href="{{url('video')}}" title="">ビデオ</a></li>
+                        </ul>
+                    </li>
+                    <li class="d-lg-block d-none logojapan"><a href="{{url('')}}" title=""><img src="{{asset('upload/hinhanh/'.$setting->photo)}}" alt="" title=""><h1>IVY HR 国際株式会社</h1></a></li>
+                    
+                    <li><a href="javascript:0;" title="">ニュース</a>
+                        <ul class="">
+                            @if(count($categories_news) > 0)
+                            <ul class="">
+                                @foreach($categories_news as $cate_news)
+                                <li><a href="{{url('/'.$cate_news->alias)}}" title="{{$cate_news->name_en}}">{{$cate_news->name_en}}</a></li>
+                                @endforeach
+                            </ul>
+                            @endif
+                        </ul>
+                    </li>
+                    <li><a href="{{url('faq')}}" title="">よくある質問</a></li>
+                    <li><a href="{{url('lien-he')}}" title="">お問い合わせ</a></li>
+                </ul>
+            </nav>
+            
+            <div class="top-right">
+                <div class="s12 t2 d-flex align-items-center justify-content-end tfirst-control">
+                    <div class="tf-control-search">
+                        <a href="#" title="" data-toggle="dropdown" class=""> 検索 <img class="ml-2" src="{{ asset('public/images/search.png')}}" alt="" title=""></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-item d-flex align-items-center cart-top-item">
+                                <form action="" class="search-frm">
+                                    <input type="text" required="required" class="form-control" placeholder="検索キーワード...">
+                                    <button type="submit" class="btn">検索</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tf-control-lan">                        
+                        <a href="{{url('langs/vi')}}" title=""><img src="{{ asset('public/images/vn.png')}}" title="" alt=""></a>
+                        <a href="{{url('langs/jp')}}" title=""><img src="{{ asset('public/images/jp.png')}}" title="" alt=""></a>
+                    </div>
+                </div>
+                <div class="s14 f1 t2 tfirst-call">
+                    <a href="tel:{{$setting->phone}}" title=""><img src="{{ asset('public/images/phone.png')}}" title="" alt=""> <span class="ml-1">{{$setting->phone}}</span></a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</header>
+@endif

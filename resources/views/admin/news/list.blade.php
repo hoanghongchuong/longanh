@@ -49,12 +49,14 @@
               <tr>
                 <th style="width: 20px;"><input type="checkbox" name="chonhet" class="minimal" id="chonhet" /></th>
                 <th class="text-center with_dieuhuong">Stt</th>
-               <!--  @if($_GET['type']=='tin-tuc' || $_GET['type']=='gioi-thieu')
+                @if($_GET['type']=='tin-tuc' || $_GET['type']=='tuyen-dung' || $_GET['type']=='dao-tao')
                 <th>Danh mục cha</th>
-                @endif -->
+                @endif
                 <th>Tên bài viết</th>
+                @if($_GET['type']!='dao-tao' && $_GET['type']!='xuat-khau')
                 <th>Hình ảnh</th>
-                <th class="text-center with_dieuhuong">Hoạt động</th>
+                @endif
+                <!-- <th class="text-center with_dieuhuong">Hoạt động</th> -->
                 <th class="text-center with_dieuhuong">Sửa</th>
                 <th class="text-center with_dieuhuong">Xóa</th>
               </tr>
@@ -64,7 +66,7 @@
               <tr>
                 <td><input type="checkbox" name="chon" id="chon" value="{{$item->id}}" class="chon" /></td>
                 <td class="text-center with_dieuhuong">{{$k+1}}</td>
-                <!-- @if($_GET['type']=='gioi-thieu' || $_GET['type']=='tin-tuc')
+                @if($_GET['type']=='tin-tuc' || $_GET['type']=='tuyen-dung' || $_GET['type']=='dao-tao')
                 <td>
                   <?php  $parent = DB::table('news_categories')->where('id', $item->cate_id)->where('com', @$_GET['type'])->first();
                   ?>
@@ -74,14 +76,14 @@
                     {{ 'None' }}
                   @endif
                 </td>
-                @endif -->
+                @endif
                 <td>
-                  {{$item->name}}<br>
-                  
+                  {{$item->name}}<br>                  
                 </td>
-                
+                @if($_GET['type']!='dao-tao' && $_GET['type']!='xuat-khau')                
                 <td><img src="{{ asset('upload/news/'.$item->photo) }}" onerror="this.src='{{ asset('public/admin_assets/images/no-image.jpg') }}';" class="img_product"  alt="NO PHOTO" /></td>
-                <td class="text-center with_dieuhuong">
+                @endif
+                <!-- <td class="text-center with_dieuhuong">
                   <div class="form-group"> 
                     @if($item->status>0)
                       <a href="backend/news/edit?id={{$item->id}}&hienthi={{ time() }}&type={{ @$_GET['type'] }}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Hiển thị</a>
@@ -98,7 +100,7 @@
                     @endif
                   </div>
                   @endif
-                </td>
+                </td> -->
                 <td class="text-center with_dieuhuong">
                   <i class="fa fa-pencil fa-fw"></i><a href="backend/news/edit?id={{$item->id}}&type={{ @$_GET['type'] }}">Edit</a>
                 </td>

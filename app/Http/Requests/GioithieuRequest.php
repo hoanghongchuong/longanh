@@ -32,7 +32,7 @@ class GioithieuRequest extends FormRequest
     public function messages()
     {
         return [
-            'txtName.required' => 'Bạn chưa nhập tên sản phẩm',
+            'txtName.required' => 'Bạn chưa nhập tên',
             'txtName.unique' => 'Tên bài viết bị trùng, mời nhập lại',
             'txtAlias.required' => 'Bạn chưa nhập liên kết bài viết',
             

@@ -4,48 +4,55 @@
     $about = Cache::get('about');
     $cateProducts = Cache::get('cateProducts');
 ?>
-<section class="footer-info">
+<footer class="ft" style="background: url(./public/images/ftbg.png) no-repeat top center; background-size: cover;">
     <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <a href="" title=""><img src="{{asset('upload/hinhanh/'.$setting->photo)}}" alt="" title=""> </a>
-            </div>
-            <div class="col-md-4 pdt">
-                <h5>@if($lang == 'vi') {{$setting->company}} @elseif($lang == 'en') {{$setting->company_en}}  @endif</h5>
-                <p>@if($lang == 'vi') {{$setting->address}} @elseif($lang == 'en') {{$setting->address_en}}  @endif</p>
-            </div>
-            <div class="col-md-5 pdt">
-                <p class="mgt-5">{{$setting->email}} </p>
-                <p>{{$setting->phone}}</p>
+        <div class="ft-1">
+            <div class="row justify-content-between">
+                <div class="col-md-1 col-sm-3">
+                    <h2 class="text-lg-left text-center"><a aria-label="IVY Hr" href="{{ url('') }}" title=""><img src="{{asset('upload/hinhanh/'.$setting->photo)}}" title="" alt="" class="logoft"></a></h2>
+                </div>
+                <div class="col-md-5 col-sm-9">
+                    <ul class="list-unstyled ft-add">
+                        <li class="s24 f1 t1">国際合資会社 IVY HR</li>
+                        <li>
+                            <span class="ft-icon"><i class="fas fa-map-marker-alt"></i></span>
+                            @if(@$lang == 'vi')
+                            <span>{{ $setting->address }}</span>
+                            @elseif(@$lang == 'en')
+                            <span>{{ $setting->address_en }}</span>
+                            @endif
+                        </li>
+                        <li>
+                            <span class="ft-icon"><i class="fas fa-phone"></i></span>
+                            <span><a href="tel:{{$setting->phone}}" title="">{{$setting->phone}}</a></span>
+                        </li>
+                        <li>
+                            <span class="ft-icon"><i class="fas fa-envelope"></i></span> 
+
+                            <span><a href="mailto:{{$setting->email}}" title="">{{$setting->email}}</a></span>
+                        </li>                        
+                        <li>
+                            <span class="ft-icon"><i class="fas fa-globe"></i></span>
+                            <a href="{{$setting->website}}" title="">{{$setting->website}}</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    <h2 class="bold s16 t1 text-uppercase text-md-left text-center ft-tit">{{__('label.send_contact')}}</h2>                    
+                    <form action="{{ route('postContact') }}" method="post" class="ft-frm">
+                        {{ csrf_field() }}
+                        <label class="sr-only" for="ft-phone">Số điện thoại</label>
+                        <input id="ft-phone" type="tel" required="required" placeholder="Số điện thoại" name="phone" class="form-control">
+                        <label class="sr-only" for="ft-content">Nội dung</label>
+                        <textarea id="ft-content" rows="3" required="required" class="form-control" name="content" placeholder="Nội dung"></textarea>
+                        <div class="text-lg-right text-center">
+                            <button class="btn text-uppercase">Gửi</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+        <div class="s14 t2 text-center ft-last">© GCO GROUP 2018. All rights reserved</div>
     </div>
-</section>
-<section class="footer-address">
-    <div class="container">
-        <h4 class="text-center">@if($lang == 'vi') {{$biendich[28]->name_vi}} @elseif($lang == 'en') {{$biendich[28]->name_en}}  @endif</h4>
-        <ul class="flex-center-center">
-            <li><a href="{{$setting->facebook}}" title="" class="fa fa-facebook"></a> </li>
-            <li><a href="{{$setting->twitter}}" title="" class="fa fa-twitter"></a> </li>
-            <li><a href="{{$setting->google}}" title="" class="fa fa-google-plus"></a> </li>
-            <li><a href="{{$setting->skype}}" title="" class="fa fa-skype"></a> </li>
-        </ul>
-        <ul class="flex-center-center footer-nav">
-            <li><a href="{{ url('') }}" title="">@if($lang == 'vi') {{$biendich[0]->name_vi}} @elseif($lang == 'en') {{$biendich[0]->name_en}}  @endif</a> </li>
-            <li><a href="{{ url('phong') }}" title="">@if($lang == 'vi') phòng @elseif($lang == 'en') room  @endif</a> </li>
-            <li><a href="{{ url('bar') }}" title="">@if($lang == 'vi') bar nhà hàng @elseif($lang == 'en') bar restaurant  @endif</a> </li>
-            <li><a href="{{ url('dich-vu') }}" title="">@if($lang == 'vi') {{$biendich[8]->name_vi}} @elseif($lang == 'en') {{$biendich[8]->name_en}}  @endif</a> </li>
-            <li><a href="{{ url('tin-tuc') }}" title="">@if($lang == 'vi') {{$biendich[3]->name_vi}} @elseif($lang == 'en') {{$biendich[3]->name_en}}  @endif</a> </li>
-            <li><a href="{{ url('lien-he') }}" title="">@if($lang == 'vi') {{$biendich[4]->name_vi}} @elseif($lang == 'en') {{$biendich[4]->name_en}}  @endif</a> </li>
-        </ul>
-        <p class="text-center">All rights reserved 2018 © LongAnh — Hotel</p>
-    </div>
-</section>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.6&appId=124844007858325";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+</footer>

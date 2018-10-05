@@ -20,21 +20,19 @@
     <div class="box">
     	@include('admin.messages_error')
         <div class="box-body">
-        	<form method="post" action="backend/gioithieu/edit/{{$data->id}}" enctype="multipart/form-data">
+        	<form method="post" action="backend/faq/edit/{{$data->id}}" enctype="multipart/form-data">
         		<input type="hidden" name="_token" value="{!! csrf_token() !!}" />
         		
       			<div class="nav-tabs-custom">
 	                <ul class="nav nav-tabs">
 	                  	<li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">Thông tin chung</a></li>
-	                  	
-	                  	<li><a href="#tab_3" data-toggle="tab" aria-expanded="true">Tiếng anh</a></li>
-	                  	<li><a href="#tab_2" data-toggle="tab" aria-expanded="true">SEO</a></li>
-	                  	
+	                  	<li><a href="#tab_3" data-toggle="tab" aria-expanded="true">tiếng nhật</a></li>
+	                  	<li><a href="#tab_2" data-toggle="tab" aria-expanded="true">SEO</a></li>	                  	
 	                </ul>
 	                <div class="tab-content">
 	                  	<div class="tab-pane active" id="tab_1">
 	                  		<div class="row">
-	                  			<div class="form-group @if ($errors->first('fImages')!='') has-error @endif">
+	                  			<!-- <div class="form-group @if ($errors->first('fImages')!='') has-error @endif">
 					                <div class="form-group" >
 					                  <div class="form-group">
 					                    <img src="{{ asset('upload/banner/'.@$data->image) }}" onerror="this.src='{{asset('public/admin_assets/images/no-image.jpg')}}'" width="200"  alt="NO PHOTO" />
@@ -44,15 +42,15 @@
 					                    <input type="file" id="file" name="fImages" >
 					                    <p class="help-block">Width:225px - Height: 162px</p>
 					                </div>
-					            </div>
+					            </div> -->
 		                  		<div class="col-md-6 col-xs-12">
 							    	<div class="form-group">
-								      	<label for="ten">Tên</label>
+								      	<label for="ten">Câu hỏi</label>
 								      	<input type="text" name="txtName" id="txtName" value="{{ @$data->name }}"  class="form-control" />
 									</div>
 									<input type="hidden" name="txtCom" value="{{ old('txtCom', isset($data) ? @$data->com : null) }}">
 									
-									<div class="form-group @if ($errors->first('txtAlias')!='') has-error @endif">
+									<div class="form-group hidden @if ($errors->first('txtAlias')!='') has-error @endif">
 								      	<label for="alias">Đường dẫn tĩnh</label>
 								      	<input type="text" name="txtAlias" id="txtAlias" value="{{ @$data->alias }}"  class="form-control" />
 								      	@if ($errors->first('txtAlias')!='')
@@ -64,7 +62,7 @@
 								<div class="col-md-6 col-xs-12">
 									<div class="box box-info">
 						                <div class="box-header">                                               
-						                  	<h3 class="box-title">Mô tả</h3>
+						                  	<h3 class="box-title">Câu trả lời</h3>
 						                  	<div class="pull-right box-tools">
 							                    <button class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
 							                    <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -76,7 +74,7 @@
 						        	</div>
 								</div>
 								
-								<div class="col-md-12 col-xs-12">
+								<!-- <div class="col-md-12 col-xs-12">
 									<div class="box box-info">
 						                <div class="box-header">                                               
 						                  	<h3 class="box-title">Nội dung</h3>
@@ -89,7 +87,7 @@
 						        			<textarea name="txtContent" id="txtContent" cols="50" rows="5">{{ @$data->content }}</textarea>
 						        		</div>
 						        	</div>
-								</div>
+								</div> -->
 							</div>
 							<div class="clearfix"></div>
 	                  	</div><!-- /.tab-pane -->
@@ -97,19 +95,19 @@
 	                  		<div class="row">
 		                  		<div class="col-md-6 col-xs-12">
 							    	<div class="form-group @if ($errors->first('txtName')!='') has-error @endif">
-								      	<label for="ten">Tên</label>
+								      	<label for="ten">Câu hỏi</label>
 								      	<input type="text" id="txtName" name="name_en" value="{{ $data->name_en }}"  class="form-control" />
 								      									      	
 									</div>
 									
 									<div class="form-group">
-								      	<label for="desc">Mô tả</label>
+								      	<label for="desc">Câu trả lời</label>
 								      	<textarea name="mota_en" id="txtContent" rows="5" class="form-control">{!! $data->mota_en !!}</textarea>
 									</div>
 								</div>
 								
 							</div>
-							<div class="row">
+							<!-- <div class="row">
 								<div class="box box-info">
 					                <div class="box-header">
 					                  	<h3 class="box-title">Nội dung</h3>
@@ -122,7 +120,7 @@
 					        			<textarea name="content_en" id="txtContent" cols="50" rows="5">{!! $data->content_en !!}</textarea>
 					        		</div>
 					        	</div>
-							</div>
+							</div> -->
 	                    	<div class="clearfix"></div>
 	                	</div><!-- /.tab-pane -->
 	                	<div class="tab-pane" id="tab_2">
@@ -143,15 +141,15 @@
 		                    	</div>
 		                    	<div class="col-md-6 col-xs-12">
 		                    		<div class="form-group">
-								      	<label for="keyword">Title english</label>
+								      	<label for="keyword">Title tiếng nhật</label>
 								      	<input name="title_en" rows="5" class="form-control" />
 									</div>
 		                    		<div class="form-group">
-								      	<label for="keyword">Keyword english</label>
+								      	<label for="keyword">Keyword tiếng nhật</label>
 								      	<textarea name="keyword_en" rows="5" class="form-control"></textarea>
 									</div>
 									<div class="form-group">
-								      	<label for="description">Description english</label>
+								      	<label for="description">Description tiếng nhật</label>
 								      	<textarea name="description_en" rows="5" class="form-control"></textarea>
 									</div>
 		                    	</div>
@@ -170,7 +168,7 @@
 			    	<div class="row">
 						<div class="col-md-6">
 					    	<button type="submit" class="btn btn-primary">Cập nhật</button>
-					    	<button type="button" class="btn btn-danger" onclick="javascript:window.location='backend/about?type={{ @$_GET[type] }}'">Thoát</button>
+					    	<button type="button" class="btn btn-danger" onclick="javascript:window.location='backend/faq'">Thoát</button>
 				    	</div>
 			    	</div>
 			  	</div>

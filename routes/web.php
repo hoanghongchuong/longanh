@@ -11,62 +11,6 @@
 |
 */
 
-
-Route::get('/', ['as'=>'index', 'uses'=>'IndexController@index']);
-Route::get('gioi-thieu',['as'=>'getAbout', 'uses'=>'IndexController@getAbout']);
-Route::get('chung-chi-ki-thuat',['as'=>'getChungChi', 'uses'=>'IndexController@getChungChi']);
-
-Route::get('langs/{id}',['as'=>'getLangs', 'uses'=>'IndexController@getLangs']);
-Route::get('khach-hang', 'IndexController@getCustomer');
-Route::get('lien-he',['as'=>'getContact', 'uses'=>'IndexController@getContact']);
-Route::post('lien-he',['as'=>'postContact', 'uses'=>'IndexController@postContact']);
-
-Route::get('tin-tuc',['as'=>'getNews', 'uses'=>'IndexController@getNews']);
-Route::get('tin-tuc/{id}.html',['as'=>'getNewsDetail', 'uses'=>'IndexController@getNewsDetail']);
-Route::get('tin-tuc/{id}',['as'=>'getListNews', 'uses'=>'IndexController@getListNews']);
-
-Route::get('co-hoi-viec-lam','IndexController@getJob')->name('getJob');
-Route::get('viec-lam/{alias}.html', 'IndexController@getJobdetail')->name('getJobdetail');
-
-
-Route::get('tuyen-dung',['as'=>'getRecruiment', 'uses'=>'IndexController@getTuyenDung']);
-Route::get('tuyen-dung/{id}.html',['as'=>'getNewsRecuiment', 'uses'=>'IndexController@getNewsTuyenDungDetail']);
-
-Route::post('book-room', 'IndexController@bookRoom')->name('book.room');
-
-Route::post('getproduct/ajax', 'IndexController@getDetailAjaxProduct');
-
-Route::get('tim-kiem',['as'=>'search', 'uses'=>'IndexController@search']);
-Route::post('newsletter',['as'=>'postNewsletter', 'uses'=>'IndexController@postNewsletter']);
-Route::get('phong',['as'=>'getProduct', 'uses'=>'IndexController@getProduct']);
-Route::get('phong/{alias}.html','IndexController@getProductDetail')->name('detailProduct');
-Route::get('phong/{id}',['as'=>'getProductList', 'uses'=>'IndexController@getProductList']);
-Route::get('danh-muc/{alias}', 'IndexController@getProductByCate')->name('detailCategory');
-
-Route::get('bar', 'IndexController@bar')->name('bar');
-
-Route::get('thanh-toan',['as'=>'thanhtoan', 'uses' => 'IndexController@thanhtoan']);
-// Route::get('danh-muc/{alias}',['as'=>'getProductChild', 'uses'=>'IndexController@getProductChild']);
-
-Route::get('thuong-hieu/{alias}','IndexController@getProductByThuongHieu');
-
-Route::get('ajax/province/{id}',['as'=>'loadDistrictByProvince', 'uses'=>'IndexController@loadDistrictByProvince']);
-Route::get('sap-xep','IndexController@SapXep')->name('sapxep');
-
-
-Route::get('dich-vu',['as'=>'dichvu', 'uses'=>'IndexController@getDichvu']);
-Route::get('dich-vu/{id}.html',['as'=>'getDichVuDetail', 'uses'=>'IndexController@getDichVuDetail']);
-
-// Route::get('thu-vien-anh',['as'=>'getThuvienanh', 'uses'=>'IndexController@getThuvienanh']);
-// Route::get('hoi-vien',['as'=>'getHoivien', 'uses'=>'IndexController@getHoivien']);
-Route::get('{id}.html',['as'=>'getProductDetail', 'uses'=>'IndexController@getProductDetail']);
-Route::get('bai-viet/{id}.html',['as'=>'getBaiVietDetail', 'uses'=>'IndexController@getBaiVietDetail']);
-Route::get('error/404.html',['as'=>'getErrorNotFount', 'uses'=>'IndexController@getErrorNotFount']);
-// Route::controllers([
-// 	'auth' => 'Auth\AuthController',
-// 	'password' => 'Auth\PasswordController',
-// ]);
-
 Route::get('backend/login',['as'=>'admin.auth.getLogin', 'uses'=>'AdminAuth\AuthController@getLogin']);
 Route::post('backend/postlogin',['as'=>'admin.auth.postLogin', 'uses'=>'AdminAuth\AuthController@postLogin']);
 
@@ -84,17 +28,6 @@ Route::group(['middleware' =>'authen', 'prefix' => 'backend'], function(){
 	Route::group(['prefix' => 'users'], function(){
 		Route::get('info',['as'=>'admin.users.getAdmin','uses'=>'Admin\UsersController@getAdmin']);
 		Route::post('updateinfo',['as'=>'admin.users.updateinfo','uses'=>'Admin\UsersController@updateinfo']);
-	});
-
-	// Chương trình khuyến mại, giảm giá
-	Route::group(['prefix' => 'campaign'], function(){
-		Route::get('/', ['as' => 'campaignIndex', 'uses' => 'Admin\CampaignController@index']);
-		Route::any('/create/{id?}', ['as' => 'campaignCreate', 'uses' => 'Admin\CampaignController@create']);
-		Route::get('/delete/{id}', ['as' => 'campaignDelete', 'uses' => 'Admin\CampaignController@delete']);
-	});
-	Route::group(['prefix' => 'campaign/card'], function(){
-		Route::get('/', ['as' => 'campaignCardIndex', 'uses' => 'Admin\CampaignController@getCard']);
-		Route::get('delete_list/{id}',['as'=>'deleteListCode','uses'=>'Admin\CampaignController@getDeleteList']);
 	});
 
 
@@ -125,44 +58,6 @@ Route::group(['middleware' =>'authen', 'prefix' => 'backend'], function(){
 		Route::get('{id}/addAlbum',['as'=>'admin.product.addAlbum','uses'=>'Admin\ProductController@addAlbum']);
 		Route::get('dropzoneStore',['as'=>'admin.product.dropzoneStore','uses'=>'Admin\ProductController@dropzoneStore']);
 		Route::get('upload',['as'=>'admin.product.upload','uses'=>'Admin\ProductController@post_upload']);
-	});
-
-
-	Route::group(['prefix' => 'thuonghieu'], function(){
-		Route::get('/',['as'=>'admin.thuonghieu.index','uses'=>'Admin\ThuongHieuController@index']);
-		Route::get('create',['as'=>'admin.thuonghieu.getCreate','uses'=>'Admin\ThuongHieuController@getCreate']);
-		Route::post('create',['as'=>'admin.thuonghieu.postCreate','uses'=>'Admin\ThuongHieuController@postCreate']);
-
-		Route::get('edit/{id}',['as'=>'admin.thuonghieu.edit','uses'=>'Admin\ThuongHieuController@getEdit']);
-
-		Route::post('edit/{id}',['as'=>'admin.thuonghieu.postEdit','uses'=>'Admin\ThuongHieuController@postEdit']);
-
-		Route::get('delete/{id}',['as'=>'admin.thuonghieu.delete','uses'=>'Admin\ThuongHieuController@delete']);
-		// Route::get('{id}/delete_list',['as'=>'admin.thuonghieu.getDeleteList','uses'=>'Admin\ProductCateController@getDeleteList']);
-	});
-	// Route::group(['prefix' => 'orders'], function(){
-	// 	Route::get('/',['as'=>'admin.order.index','uses'=>'Admin\OrderController@getList']);
-	// 	Route::get('add',['as'=>'admin.orders.getAdd','uses'=>'Admin\OrdersController@getAdd']);
-	// 	Route::post('postAdd',['as'=>'admin.orders.postAdd','uses'=>'Admin\OrdersController@postAdd']);
-
-	// 	Route::get('edit',['as'=>'admin.orders.getEdit','uses'=>'Admin\OrdersController@getEdit']);
-
-	// 	Route::post('edit',['as'=>'admin.orders.update','uses'=>'Admin\OrdersController@update']);
-
-	// 	Route::get('{id}/delete',['as'=>'admin.orders.getDelete','uses'=>'Admin\OrdersController@getDelete']);
-	// 	Route::get('{id}/delete_list',['as'=>'admin.orders.getDeleteList','uses'=>'Admin\OrdersController@getDeleteList']);
-	// });
-	
-		Route::group(['prefix' => 'orders'], function(){
-		Route::get('/',['as'=>'admin.bill.index','uses'=>'Admin\BillController@getList']);
-		// Route::get('add',['as'=>'admin.obill.getAdd','uses'=>'Admin\BillController@getAdd']);
-		// Route::post('postAdd',['as'=>'admin.obill.postAdd','uses'=>'Admin\OBillController@postAdd']);
-		
-		Route::get('edit/{id}',['as'=>'admin.bill.getEdit','uses'=>'Admin\BillController@getEdit']);
-		Route::post('edit/{id}',['as'=>'admin.bill.update','uses'=>'Admin\BillController@update']);
-
-		Route::get('delete/{id}',['as'=>'admin.bill.getDelete','uses'=>'Admin\BillController@getDelete']);
-		// Route::get('{id}/delete_list',['as'=>'admin.obill.getDeleteList','uses'=>'Admin\OBillController@getDeleteList']);
 	});
 
 	Route::group(['prefix' => 'newscate'], function(){
@@ -217,6 +112,17 @@ Route::group(['middleware' =>'authen', 'prefix' => 'backend'], function(){
 		Route::get('deleteList/{id}',['as'=>'admin.banner.getDeleteList','uses'=>'Admin\BannerController@getDeleteList']);
 
 	});
+	Route::group(['prefix'=>'video'], function(){
+		Route::get('/',['as'=>'admin.video.index', 'uses'=>'Admin\VideoController@index']);
+
+		Route::get('create',['as'=>'admin.video.getCreate', 'uses'=>'Admin\VideoController@getCreate']);
+		Route::post('create',['as'=>'admin.video.postCreate', 'uses'=>'Admin\VideoController@postCreate']);
+
+		Route::get('edit/{id}',['as'=>'admin.video.getEdit', 'uses'=>'Admin\VideoController@getEdit']);
+		Route::post('edit/{id}',['as'=>'admin.video.postEdit', 'uses'=>'Admin\VideoController@postEdit']);
+
+		Route::get('delete/{id}',['as'=>'admin.video.delete','uses'=>'Admin\VideoController@delete']);
+	});
 	Route::group(['prefix' => 'news'], function(){
 		Route::get('/',['as'=>'admin.news.index','uses'=>'Admin\NewsController@getList']);
 		Route::get('add',['as'=>'admin.news.getAdd','uses'=>'Admin\NewsController@getAdd']);
@@ -249,7 +155,7 @@ Route::group(['middleware' =>'authen', 'prefix' => 'backend'], function(){
 
 		Route::get('{id}/delete',['as'=>'admin.about.getDelete','uses'=>'Admin\AboutController@getDelete']);
 	});
-	Route::group(['prefix' => 'gioithieu'], function(){
+	Route::group(['prefix' => 'faq'], function(){
 		Route::get('/','Admin\GioiThieuController@index')->name('admin.gioithieu.index');
 		Route::get('add','Admin\GioiThieuController@getAdd')->name('admin.gioithieu.getAdd');
 		Route::post('postAdd',['as'=>'admin.gioithieu.postAdd','uses'=>'Admin\GioiThieuController@postAdd']);
@@ -320,24 +226,13 @@ Route::group(['middleware' =>'authen', 'prefix' => 'backend'], function(){
 
 		Route::get('delete/{id}',['as'=>'admin.province.delete', 'uses' => 'Admin\ProvinceController@delete']);
 	});
-	Route::group(['prefix' => 'linhvuc'], function(){
-		Route::get('/',['as'=>'admin.linhvuc.index', 'uses' => 'Admin\LinhVucController@index']);
-		Route::get('add',['as'=>'admin.linhvuc.getCreate', 'uses' => 'Admin\LinhVucController@getCreate']);
-		Route::post('add',['as'=>'admin.linhvuc.postCreate', 'uses' => 'Admin\LinhVucController@postCreate']);
-
-		Route::get('edit/{id}',['as'=>'admin.linhvuc.getEdit', 'uses' => 'Admin\LinhVucController@getEdit']);
-		Route::post('edit/{id}',['as'=>'admin.linhvuc.postEdit', 'uses' => 'Admin\LinhVucController@postEdit']);
-
-		Route::get('delete/{id}',['as'=>'admin.linhvuc.delete', 'uses' => 'Admin\LinhVucController@delete']);
-	});
+	
 	Route::group(['prefix' => 'district'], function(){
 		Route::get('/',['as'=>'admin.district.index', 'uses' => 'Admin\DistrictController@index']);
 		Route::get('add',['as'=>'admin.district.getCreate', 'uses' => 'Admin\DistrictController@getCreate']);
 		Route::post('add',['as'=>'admin.district.postCreate', 'uses' => 'Admin\DistrictController@postCreate']);
-
 		Route::get('edit/{id}',['as'=>'admin.district.getEdit', 'uses' => 'Admin\DistrictController@getEdit']);
 		Route::post('edit/{id}',['as'=>'admin.district.postEdit', 'uses' => 'Admin\DistrictController@postEdit']);
-
 		Route::get('delete/{id}',['as'=>'admin.district.delete', 'uses' => 'Admin\DistrictController@delete']);
 	});
 
@@ -350,28 +245,7 @@ Route::group(['middleware' =>'authen', 'prefix' => 'backend'], function(){
 		Route::get('delete/{id}',['as'=>'admin.chinhanh.delete', 'uses' => 'Admin\ChiNhanhController@delete']);
 	});
 
-	Route::group(['prefix'=>'bankaccount'], function(){
-		Route::get('/',['as'=>'admin.bank.index', 'uses'=>'Admin\BankAccountController@index']);
-
-		Route::get('create',['as'=>'admin.bank.getCreate', 'uses'=>'Admin\BankAccountController@getCreate']);
-		Route::post('create',['as'=>'admin.bank.postCreate', 'uses'=>'Admin\BankAccountController@postCreate']);
-
-		Route::get('edit/{id}',['as'=>'admin.bank.getEdit', 'uses'=>'Admin\BankAccountController@getEdit']);
-		Route::post('edit/{id}',['as'=>'admin.bank.postEdit', 'uses'=>'Admin\BankAccountController@postEdit']);
-
-		Route::get('delete/{id}',['as'=>'admin.bank.delete','uses'=>'Admin\BankAccountController@delete']);
-	});
-	Route::group(['prefix'=>'video'], function(){
-		Route::get('/',['as'=>'admin.video.index', 'uses'=>'Admin\VideoController@index']);
-
-		Route::get('create',['as'=>'admin.video.getCreate', 'uses'=>'Admin\VideoController@getCreate']);
-		Route::post('create',['as'=>'admin.video.postCreate', 'uses'=>'Admin\VideoController@postCreate']);
-
-		Route::get('edit/{id}',['as'=>'admin.video.getEdit', 'uses'=>'Admin\VideoController@getEdit']);
-		Route::post('edit/{id}',['as'=>'admin.video.postEdit', 'uses'=>'Admin\VideoController@postEdit']);
-
-		Route::get('delete/{id}',['as'=>'admin.video.delete','uses'=>'Admin\VideoController@delete']);
-	});
+	
 	Route::group(['prefix'=>'partner'], function(){
 		Route::get('/',['as'=>'admin.partner.index','uses'=>'Admin\PartnerController@getList']);
 		Route::get('add',['as'=>'admin.partner.getAdd','uses'=>'Admin\PartnerController@getAdd']);
@@ -386,21 +260,6 @@ Route::group(['middleware' =>'authen', 'prefix' => 'backend'], function(){
 
 	});
 
-	Route::group(['prefix'=>'member'], function(){
-		Route::get('/',['as'=>'admin.member.index','uses'=>'Admin\MemberController@getList']);
-		Route::get('add',['as'=>'admin.member.getAdd','uses'=>'Admin\MemberController@getAdd']);
-		Route::post('add',['as'=>'admin.member.postAdd','uses'=>'Admin\MemberController@postAdd']);
-
-		Route::get('edit/{id}',['as'=>'admin.member.getEdit','uses'=>'Admin\MemberController@getEdit']);
-		Route::post('edit/{id}',['as'=>'admin.member.update','uses'=>'Admin\MemberController@update']);
-
-		Route::get('delete/{id}',['as'=>'admin.member.getDelete','uses'=>'Admin\MemberController@getDelete']);
-		
-		
-
-	});
-
-
 	Route::group(['prefix'=>'slogan'], function(){
 		Route::get('/',['as'=>'admin.slogan.index','uses'=>'Admin\SloganController@index']);
 		Route::get('create',['as'=>'admin.slogan.create','uses'=>'Admin\SloganController@getCreate']);
@@ -409,20 +268,7 @@ Route::group(['middleware' =>'authen', 'prefix' => 'backend'], function(){
 		Route::post('edit/{id}',['as'=>'admin.slogan.postEdit', 'uses'=>'Admin\SloganController@postEdit']);
 		Route::get('delete/{id}',['as'=>'admin.slogan.delete', 'uses' => 'Admin\SloganController@delete']);
 	});
-	Route::group(['prefix'=>'vieclam'], function(){
-		Route::get('/',['as'=>'admin.vieclam.index','uses'=>'Admin\ViecLamController@getList']);
-		Route::get('create',['as'=>'admin.vieclam.getAdd','uses'=>'Admin\ViecLamController@getAdd']);
-		Route::post('create',['as'=>'admin.vieclam.postAdd','uses'=>'Admin\ViecLamController@postAdd']);
-
-		Route::get('edit/{id}',['as'=>'admin.vieclam.getEdit','uses'=>'Admin\ViecLamController@getEdit']);
-		Route::post('edit/{id}',['as'=>'admin.vieclam.update','uses'=>'Admin\ViecLamController@update']);
-
-		Route::get('delete/{id}',['as'=>'admin.vieclam.getDelete','uses'=>'Admin\ViecLamController@deleteById']);
-		
-		// Route::get('deleteList/{id}',['as'=>'admin.partner.getDeleteList','uses'=>'Admin\PartnerController@getDeleteList']);
-
-	});
-
+	
 	Route::group(['prefix' => 'langs'], function(){
 	  Route::get('/',['as'=>'admin.langs.index','uses'=>'Admin\LangsController@getDanhSach']);
 	  Route::get('add',['as'=>'admin.langs.getAdd','uses'=>'Admin\LangsController@getAdd']);
@@ -440,22 +286,49 @@ Route::group(['middleware' =>'authen', 'prefix' => 'backend'], function(){
 	Route::post('dropzone/store', ['as'=>'dropzone.store','uses'=>'Admin/ProductController@dropzoneStore']);
 
 });
-Route::get('schema/create-product', function(){
-	Schema::create('products', function($table){
-		$table->increments('id');
-		//$table->integer('cate_id')->unsigned();
-		//$table->foreign('cate_id')->references('id')->on('product_categories')->onDelete('cascade');
-		$table->integer('cate_id')->unsigned();
-		$table->integer('stt')->nullable();
-		$table->string('name');
-		$table->string('alias');
-		$table->text('photo')->nullable();
-		$table->integer('price');
-		$table->longText('mota')->nullable();
-		$table->longText('content')->nullable();
-		$table->integer('status');
-		$table->longText('keyword')->nullable();
-		$table->longText('description')->nullable();
-		$table->timestamps();
-	});
+
+// Route::get('',['as'=>'getNews', 'uses'=>'IndexController@getNews']);
+Route::group(['middleware' => 'localization', 'prefix' => Session::get('locale')], function() {
+
+Route::get('/', ['as'=>'index', 'uses'=>'IndexController@index']);
+Route::get('gioi-thieu',['as'=>'getAbout', 'uses'=>'IndexController@getAbout']);
+
+Route::get('langs/{id}',['as'=>'getLangs', 'uses'=>'IndexController@getLangs']);
+Route::get('khach-hang', 'IndexController@getCustomer');
+Route::get('lien-he',['as'=>'getContact', 'uses'=>'IndexController@getContact']);
+Route::post('lien-he',['as'=>'postContact', 'uses'=>'IndexController@postContact']);
+
+Route::get('video', 'IndexController@video');
+Route::get('gallery', 'IndexController@gallery');
+
+
+Route::get('tuyen-dung/{id}.html',['as'=>'getNewsRecuiment', 'uses'=>'IndexController@getNewsTuyenDungDetail']);
+Route::get('tuyen-dung/{alias}',['as'=>'getRecruiment', 'uses'=>'IndexController@getTuyenDung']);
+
+Route::get('tim-kiem',['as'=>'search', 'uses'=>'IndexController@search']);
+Route::post('newsletter',['as'=>'postNewsletter', 'uses'=>'IndexController@postNewsletter']);
+
+Route::get('thu-ngo', 'IndexController@thuNgo');
+Route::get('thong-tin-cong-ty', 'IndexController@thongTin');
+Route::get('the-manh', 'IndexController@theManh');
+Route::get('xuat-khau-lao-dong', 'IndexController@xuatKhau');
+Route::get('the-manh', 'IndexController@themanh');
+
+Route::get('ajax/province/{id}',['as'=>'loadDistrictByProvince', 'uses'=>'IndexController@loadDistrictByProvince']);
+
+Route::get('dich-vu',['as'=>'dichvu', 'uses'=>'IndexController@getDichvu']);
+Route::get('dich-vu/{id}.html',['as'=>'getDichVuDetail', 'uses'=>'IndexController@getDichVuDetail']);
+Route::get('faq', 'IndexController@faq');
+// Route::get('thu-vien-anh',['as'=>'getThuvienanh', 'uses'=>'IndexController@getThuvienanh']);
+// Route::get('hoi-vien',['as'=>'getHoivien', 'uses'=>'IndexController@getHoivien']);
+// Route::get('{id}.html',['as'=>'getProductDetail', 'uses'=>'IndexController@getProductDetail']);
+Route::get('bai-viet/{id}.html',['as'=>'getBaiVietDetail', 'uses'=>'IndexController@getBaiVietDetail']);
+Route::get('error/404.html',['as'=>'getErrorNotFount', 'uses'=>'IndexController@getErrorNotFount']);
+// Route::controllers([
+// 	'auth' => 'Auth\AuthController',
+// 	'password' => 'Auth\PasswordController',
+// ]);
+Route::get('{alias}',['as'=>'getListNews', 'uses'=>'IndexController@getListNews']);
+Route::get('{cate}/{alias}.html',['as'=>'getNewsDetail', 'uses'=>'IndexController@getNewsDetail']);
+Route::get('{cate}/{alias}',['as'=>'getNewsDetail', 'uses'=>'IndexController@getNewsDate']);
 });

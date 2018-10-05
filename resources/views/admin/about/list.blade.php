@@ -52,7 +52,9 @@
                 <th>Danh mục cha</th>
                 @endif -->
                 <th>Tên bài viết</th>
-                <!-- <th>Hình ảnh</th> -->
+                @if($_GET['type']=='the-manh')
+                <th>Hình ảnh</th>
+                @endif
                 <!-- <th class="text-center with_dieuhuong">Hoạt động</th> -->
                 <th class="text-center with_dieuhuong">Sửa</th>
                 <th class="text-center with_dieuhuong">Xóa</th>
@@ -78,8 +80,9 @@
                   {{$item->name}}<br>
                   <!-- <a href="{{ asset($item->alias.'.html') }}" target="_blank">{{ $item->alias.'.html' }}</a> -->
                 </td>
-                
-                
+                @if($_GET['type']=='the-manh')
+                <td><img src="{{ asset('upload/hinhanh/'.$item->photo) }}" width="150" alt=""></td>
+                @endif
                 <!-- <td class="text-center with_dieuhuong">
                   <div class="form-group"> 
                     @if($item->status > 0)

@@ -73,8 +73,14 @@ class NewsController extends Controller
             $img2->move($path_img2,$img_name2);
         }
 
-        $news = new News;
-        
+        $img_en=$request->file('fImages_en');
+        $img_name_en='';
+        if(!empty($img_en)){
+            $img_name_en=time().'_'.$img->getClientOriginalName();
+            $img_en->move($path_img,$img_name_en);
+        }       
+
+        $news = new News;        
         $news->name = $request->txtName;
         $news->name_en = $request->name_en;
         if($request->txtNewsCate>0){
@@ -96,6 +102,7 @@ class NewsController extends Controller
         $news->mota = $request->txtDesc;
         $news->mota_en = $request->mota_en;
         $news->photo = $img_name;
+        $news->photo_en = $img_name_en;
         $news->background = $img_name2;
         // $news->noibat = $request->hotnews;
         $news->title = $request->txtTitle;
@@ -106,8 +113,7 @@ class NewsController extends Controller
         $news->keyword_en = $request->keyword_en;
         $news->description = $request->txtDescription;
         $news->description_en = $request->description_en;
-        $news->com = $com;
-        
+        $news->com = $com;        
         $news->stt = intval($request->stt);
         if($request->noibat=='on'){
             $news->noibat = 1;
@@ -118,6 +124,11 @@ class NewsController extends Controller
             $news->status = 1;
         }else{
             $news->status = 0;
+        }
+        if($request->status_en=='on'){
+            $news->status_en = 1;
+        }else{
+            $news->status_en = 0;
         }
         $news->user_id = Auth::user()->id;
         $news->save();
@@ -218,7 +229,6 @@ class NewsController extends Controller
         $id= $request->get('id');
         if($id){
             $news = News::findOrFail($id);
-
             $img = $request->file('fImages');
             $img_current = 'upload/news/'.$request->img_current;
             if(!empty($img)){
@@ -230,7 +240,6 @@ class NewsController extends Controller
                     File::delete($img_current);
                 }
             }
-
 
             if ($request->hasFile('detailImg')) {
                 foreach ($request->file('detailImg') as $file) {
@@ -256,6 +265,17 @@ class NewsController extends Controller
                 }
             } 
 
+            $img_en = $request->file('fImages_en');
+            $img_current_en = 'upload/news/'.$request->img_current_en;
+            if(!empty($img_en)){
+                $path_img_en='upload/news';
+                $img_name_en=time().'_'.$img_en->getClientOriginalName();
+                $img_en->move($path_img_en,$img_name_en);
+                $news->photo_en = $img_name_en;
+                if (File::exists($img_current_en)) {
+                    File::delete($img_current_en);
+                }
+            } 
 
             $news->name = $request->txtName;
             $news->name_en = $request->name_en;
@@ -297,6 +317,11 @@ class NewsController extends Controller
                 $news->status = 1;
             }else{
                 $news->status = 0;
+            }
+            if($request->status_en=='on'){
+                $news->status_en = 1;
+            }else{
+                $news->status_en = 0;
             }
             $news->user_id = Auth::user()->id;
 

@@ -27,9 +27,11 @@
       			<div class="nav-tabs-custom">
 	                <ul class="nav nav-tabs">
 	                  	<li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">Thông tin chung</a></li>
-	                  	<li><a href="#tab_2" data-toggle="tab" aria-expanded="true">Tiếng anh</a></li>
-	                  	<li><a href="#tab_4" data-toggle="tab" aria-expanded="true">Album ảnh</a></li>
+	                  	<li><a href="#tab_2" data-toggle="tab" aria-expanded="true">tiếng nhật</a></li>
+	                  	<!-- <li><a href="#tab_4" data-toggle="tab" aria-expanded="true">Album ảnh</a></li> -->
+	                  	@if($_GET['type']!='xuat-khau')
 	                  	<li><a href="#tab_3" data-toggle="tab" aria-expanded="true">SEO</a></li>
+	                  	@endif
 	                </ul>
 	                <div class="tab-content">
 	                  	<div class="tab-pane active" id="tab_1">
@@ -42,6 +44,7 @@
 						        			@endforeach
 						        		</div>
 						        	@endif
+						        	@if($_GET['type']!='dao-tao' && $_GET['type']!='xuat-khau')
 									<div class="form-group col-md-12 @if ($errors->first('fImages')!='') has-error @endif">
 										<label for="file">File ảnh</label>
 								     	<input type="file" id="file" name="fImages" >
@@ -50,9 +53,9 @@
 								      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('fImages'); !!}</label>
 								      	@endif
 									</div>
-									
+									@endif
 									<div class="clearfix"></div>
-									<!-- @if($_GET['type']=='tin-tuc' || $_GET['type']=='gioi-thieu')
+									@if($_GET['type']=='tin-tuc' || $_GET['type']=='tuyen-dung' || $_GET['type']=='dao-tao')
 									<div class="form-group">
 								      	<label for="ten">Danh mục cha</label>
 								      	<select name="txtNewsCate" class="form-control">
@@ -61,23 +64,22 @@
 								      		<?php cate_parent($parent,0,"--",0) ?>
 								      	</select>
 									</div>
-									@endif -->
+									@endif
 							    	<div class="form-group @if ($errors->first('txtName')!='') has-error @endif">
 								      	<label for="ten">Tên</label>
 								      	<input type="text" id="txtName" name="txtName" value=""  class="form-control" />
 								      	@if ($errors->first('txtName')!='')
 								      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('txtName'); !!}</label>
 								      	@endif
-									</div>
-									
-									<div class="form-group @if($_GET['type']!='dich-vu') hidden @endif @if ($errors->first('txtAlias')!='') has-error @endif">
+									</div>									
+									<div class="form-group @if($_GET['type']=='dao-tao' || $_GET['type']=='xuat-khau') hidden @endif  @if($errors->first('txtAlias')!='') has-error @endif">
 								      	<label for="alias">Đường dẫn tĩnh</label>
 								      	<input type="text" name="txtAlias" id="txtAlias" value=""  class="form-control" />
 								      	@if ($errors->first('txtAlias')!='')
 								      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('txtAlias'); !!}</label>
 								      	@endif
-									</div>
-									@if($_GET['type']!='bar')
+									</div>	
+									@if($_GET['type']!='dao-tao' && $_GET['type']!='xuat-khau')								
 									<div class="form-group">
 								      	<label for="desc">Mô tả</label>
 								      	<textarea name="txtDesc" rows="5" class="form-control"></textarea>
@@ -112,9 +114,16 @@
 						        			<textarea name="txtContent" id="txtContent" cols="50" rows="5"></textarea>
 						        		</div>
 						        	</div>
+						        	<div class="form-group">
+									    <label>
+								        	<input type="checkbox" name="status" checked="checked"> Hiển thị
+								    	</label>
+								    </div>
 								</div>
+
 							</div>
 							<div class="clearfix"></div>
+
 	                  	</div><!-- /.tab-pane -->
 	                  	<div class="tab-pane" id="tab_2">
 	                  		<div class="row">
@@ -126,8 +135,16 @@
 						        			@endforeach
 						        		</div>
 						        	@endif
-																		
-									
+									@if($_GET['type']!='dao-tao' && $_GET['type']!='xuat-khau')									
+									<div class="form-group col-md-12 @if ($errors->first('fImages')!='') has-error @endif">
+										<label for="file">File ảnh</label>
+								     	<input type="file" id="file" name="fImages_en" >
+								    	<p class="help-block">Width:225px - Height: 162px</p>
+								    	@if ($errors->first('fImages')!='')
+								      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('fImages'); !!}</label>
+								      	@endif
+									</div>
+									@endif
 			                    		<div class="form-group">
 									      	<label for="txtTitle">Name</label>
 									      	<input type="text" name="name_en" id="name_en" value=""  class="form-control" />
@@ -135,9 +152,8 @@
 										<div class="form-group hidden">
 									      	<label for="alias">Alias</label>
 									      	<input type="text" name="txtAlias_en" id="txtAlias_en" value=""  class="form-control" />
-										</div>
-			                    		
-			                    	@if($_GET['type']!='bar')
+										</div>			                    		
+			                    	@if($_GET['type']!='dao-tao' && $_GET['type']!='xuat-khau')
 									<div class="form-group">
 								      	<label for="desc">Mô tả</label>
 								      	<textarea name="mota_en" rows="5" class="form-control"></textarea>
@@ -161,6 +177,11 @@
 						        			<textarea name="content_en" id="txtContent" cols="50" rows="5"></textarea>
 						        		</div>
 						        	</div>
+						        	<div class="form-group">
+									    <label>
+								        	<input type="checkbox" name="status_en" checked="checked"> Hiển thị
+								    	</label>
+								    </div>
 								</div>
 							</div>
 	                    	<div class="clearfix"></div>
@@ -191,15 +212,15 @@
 		                    	</div>
 		                    	<div class="col-md-6 col-xs-12">
 		                    		<div class="form-group">
-								      	<label for="keyword">Title english</label>
+								      	<label for="keyword">Title tiếng nhật</label>
 								      	<input name="title_en" rows="5" class="form-control" />
 									</div>
 		                    		<div class="form-group">
-								      	<label for="keyword">Keyword english</label>
+								      	<label for="keyword">Keyword tiếng nhật</label>
 								      	<textarea name="keyword_en" rows="5" class="form-control"></textarea>
 									</div>
 									<div class="form-group">
-								      	<label for="description">Description english</label>
+								      	<label for="description">Description tiếng nhật</label>
 								      	<textarea name="description_en" rows="5" class="form-control"></textarea>
 									</div>
 		                    	</div>
@@ -212,24 +233,24 @@
 	            <div class="clearfix"></div>
 
 			    <div class="col-md-6">
-			    	@if($_GET['type']=='tin-tuc')
+			    	<!-- @if($_GET['type']=='tin-tuc')
 			    	<div class="form-group">
 					    <label>
 				        	<input type="checkbox" name="noibat" >
 				        	Tin hot
 				    	</label>
 					</div>
-					@endif
+					@endif -->
 			    	<!-- <div class="form-group">
 					      <label for="ten">Số thứ tự</label>
 					      <input type="number" min="1" name="stt" value="{!! count($data)+1 !!}" class="form-control" style="width: 100px;">
 				    </div> -->
 				    
-				    <div class="form-group">
+				    <!-- <div class="form-group">
 					    <label>
 				        	<input type="checkbox" name="status" checked="checked"> Hiển thị
 				    	</label>
-				    </div>
+				    </div> -->
 			    	
 			    </div>
 			    <div class="clearfix"></div>

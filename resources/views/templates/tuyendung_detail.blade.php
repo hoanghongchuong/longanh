@@ -7,41 +7,53 @@
     $lang = Cache::get('lang');
     $biendich = Cache::get('biendich');
 ?>
-<section class="page-title">
-    <div class="container">
-        <div class="title">
-            <p><span class="mgl-70 dash">@if($lang =='vi') {{"Tuyển dụng"}} @elseif($lang =='en') {{"Recruiment"}} @endif</span></p>
-            <h2 class="title-h">@if($lang == 'vi') {{$news_detail->name}} @elseif($lang =='en') {{$news_detail->name_en}} @endif</h2>
-        </div>
-    </div>
-</section>
-<section class="join">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="join-title">
-                    <h1>@if($lang == 'vi') {{$news_detail->name}} @elseif($lang =='en') {{$news_detail->name_en}} @endif</h1>
-                    <p class="border"></p>
-                    <p>@if($lang =='vi') {{"Tuyển dụng"}} @elseif($lang =='en') {{"Recruiment"}} @endif  —  {{date('d/m/Y', strtotime($news_detail->created_at))}}</p>
-                    <p class="news-social">
+<main class="">
+    <section class="banner">
+        <div class="container">
+            <div class="banner-wrap">
+                <img src="{{ asset('public/images/5.jpg')}}" alt="">
+                <h2 class="medium s30 text-center text-white text-uppercase banner-tit">{{ $news_detail->name }}</h2>
+            </div>
 
-                       <div class="addthis_toolbox addthis_default_style" style="margin-top:10px;">
-                            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-                            <a class="addthis_button_tweet"></a>
-                            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-                            <a class="addthis_counter addthis_pill_style"></a>
+            <ul class="list-unstyled s14 bread">
+                <li><a href="{{url('')}}" title="">Trang chủ</a></li>
+                <li><a href="blog.html" title="">Tuyển dụng</a></li>
+                <li>{{ $news_detail->name }}</li>
+            </ul>
+        </div>
+    </section>
+    <div class="bdetail">
+        <div class="container">
+            <h1 class="medium s24 t3 bdetail-tit">{{ $news_detail->name }}</h1>
+            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                <h3 class="medium s14 t1 blog-item-time">{{date('d/m/Y', strtotime($news_detail->created_at))}}</h3>
+                <div class="bdetail-like">
+                    <span>Chia sẻ:</span> <a href="#" title=""><i class="fab fa-facebook-f"></i> <a href="#" title=""><i class="fab fa-google-plus-g"></i></a>
+                </div>
+            </div>
+            <div class="content bdetail-content">                
+                {!! $news_detail->content !!}                
+            </div>
+
+            <h2 class="s18 medium bdetail-retit">Bài viết liên quan</h2>
+            @foreach($data as $item)
+            <div class="bdetail-re-item">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-5">
+                        <div class="bdetail-re-item-img">
+                            <a href="{{ url('tuyen-dung/'.$item->alias.'.html') }}" title="{{$item->name}}"><img src="{{asset('upload/news/'.$item->photo)}}" alt="{{$item->name}}" title="{{$item->name}}"></a>
                         </div>
-                            <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
-                            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52843d4e1ff0313a"></script>
-                    </p>
+                    </div>
+                    <div class="col-md-8 col-sm-7">
+                        <div class="bdetail-re-item-content">
+                            <h3 class="medium s18 pb-4 bdetail-re-item-tit"><a href="{{ url('tuyen-dung/'.$item->alias.'.html') }}" title="{{$item->name}}">{{$item->name}}</a></h3>
+                            <p>{!! $item->mota !!}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-8">
-                <div class="join-content">
-                    @if($lang == 'vi') {!! $news_detail->content !!} @elseif($lang == 'en') {!! $news_detail->content_en !!} @endif
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
-</section>
+</main>
 @endsection

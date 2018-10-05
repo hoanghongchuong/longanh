@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('content')
-@section('controller','Giới thiệu')
+@section('controller','FAQ')
 @section('action','Add')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -27,13 +27,13 @@
       			<div class="nav-tabs-custom">
 	                <ul class="nav nav-tabs">
 	                  	<li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">Thông tin chung</a></li>
-	                  	<li><a href="#tab_2" data-toggle="tab" aria-expanded="true">Tiếng anh</a></li>
+	                  	<li><a href="#tab_2" data-toggle="tab" aria-expanded="true">tiếng nhật</a></li>
 	                  	<li><a href="#tab_3" data-toggle="tab" aria-expanded="true">SEO</a></li>
 	                </ul>
 	                <div class="tab-content">
 	                  	<div class="tab-pane active" id="tab_1">
 	                  		<div class="row">
-	                  			<div class="form-group col-md-12 @if ($errors->first('fImages')!='') has-error @endif">
+	                  			<!-- <div class="form-group col-md-12 @if ($errors->first('fImages')!='') has-error @endif">
 					                <label for="file">File ảnh</label>
 					                  <input type="file" id="file" name="fImages" >
 					                  <p class="help-block">Width:225px - Height: 162px</p>
@@ -41,34 +41,30 @@
 					                    <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('fImages'); !!}</label>
 					                    @endif
 					              </div>
-					              
+					               -->
 					            <div class="clearfix"></div>
-		                  		<div class="col-md-6 col-xs-12">
-			                    	
+		                  		<div class="col-md-6 col-xs-12">			                    	
 							    	<div class="form-group @if ($errors->first('txtName')!='') has-error @endif">
-								      	<label for="ten">Tên</label>
+								      	<label for="ten">Câu hỏi</label>
 								      	<input type="text" id="txtName" name="txtName" value=""  class="form-control" />
 								      	@if ($errors->first('txtName')!='')
 								      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('txtName'); !!}</label>
 								      	@endif
 									</div>
-									
-									<div class="form-group @if ($errors->first('txtAlias')!='') has-error @endif">
+									<!-- <div class="form-group @if ($errors->first('txtAlias')!='') has-error @endif">
 								      	<label for="alias">Đường dẫn tĩnh</label>
 								      	<input type="text" name="txtAlias" id="txtAlias" value=""  class="form-control" />
 								      	@if ($errors->first('txtAlias')!='')
 								      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('txtAlias'); !!}</label>
 								    	@endif
-									</div>
-
+									</div> -->
 									<div class="form-group">
-								      	<label for="desc">Mô tả</label>
+								      	<label for="desc">Câu trả lời</label>
 								      	<textarea name="txtDesc" id="txtContent" rows="5" class="form-control"></textarea>
 									</div>
-								</div>
-								
+								</div>								
 							</div>
-							<div class="row">
+							<!-- <div class="row">
 								<div class="box box-info">
 					                <div class="box-header">
 					                  	<h3 class="box-title">Nội dung</h3>
@@ -81,26 +77,23 @@
 					        			<textarea name="txtContent" id="txtContent" cols="50" rows="5"></textarea>
 					        		</div>
 					        	</div>
-							</div>
+							</div> -->
 							<div class="clearfix"></div>
 	                  	</div><!-- /.tab-pane -->
 	                  	<div class="tab-pane" id="tab_2">
 	                  		<div class="row">
 		                  		<div class="col-md-6 col-xs-12">
 							    	<div class="form-group @if ($errors->first('txtName')!='') has-error @endif">
-								      	<label for="ten">Tên</label>
+								      	<label for="ten">Câu hỏi</label>
 								      	<input type="text" id="txtName" name="name_en" value=""  class="form-control" />
-								      									      	
-									</div>
-									
+									</div>									
 									<div class="form-group">
-								      	<label for="desc">Mô tả</label>
+								      	<label for="desc">Câu trả lời</label>
 								      	<textarea name="mota_en" id="txtContent" rows="5" class="form-control"></textarea>
 									</div>
-								</div>
-								
+								</div>								
 							</div>
-							<div class="row">
+							<!-- <div class="row">
 								<div class="box box-info">
 					                <div class="box-header">
 					                  	<h3 class="box-title">Nội dung</h3>
@@ -113,7 +106,7 @@
 					        			<textarea name="content_en" id="txtContent" cols="50" rows="5"></textarea>
 					        		</div>
 					        	</div>
-							</div>
+							</div> -->
 	                    	<div class="clearfix"></div>
 	                	</div><!-- /.tab-pane -->
 	                	<div class="tab-pane" id="tab_3">
@@ -134,15 +127,15 @@
 		                    	</div>
 		                    	<div class="col-md-6 col-xs-12">
 		                    		<div class="form-group">
-								      	<label for="keyword">Title english</label>
+								      	<label for="keyword">Title tiếng nhật</label>
 								      	<input name="title_en" rows="5" class="form-control" />
 									</div>
 		                    		<div class="form-group">
-								      	<label for="keyword">Keyword english</label>
+								      	<label for="keyword">Keyword tiếng nhật</label>
 								      	<textarea name="keyword_en" rows="5" class="form-control"></textarea>
 									</div>
 									<div class="form-group">
-								      	<label for="description">Description english</label>
+								      	<label for="description">Description tiếng nhật</label>
 								      	<textarea name="description_en" rows="5" class="form-control"></textarea>
 									</div>
 		                    	</div>
@@ -152,14 +145,12 @@
 	                </div><!-- /.tab-content -->
 	            </div>
 	            <div class="clearfix"></div>
-			    <div class="col-md-6">
-			    					    
+			    <div class="col-md-6">			    
 				    <div class="form-group">
 					    <label>
 				        	<input type="checkbox" name="status" checked="checked"> Hiển thị
 				    	</label>
-				    </div>
-			    	
+				    </div>			    	
 			    </div>
 			    <div class="clearfix"></div>
 			    <div class="box-footer">
@@ -172,8 +163,7 @@
 			  	</div>
 		    </form>
         </div><!-- /.box-body -->
-    </div><!-- /.box -->
-    
+    </div>    
 </section><!-- /.content -->
 
 @endsection()

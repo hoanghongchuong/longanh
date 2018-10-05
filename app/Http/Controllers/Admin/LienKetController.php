@@ -67,9 +67,12 @@ class LienKetController extends Controller
         $news = new LienKet;
         
         $news->name = $request->txtName;
+        $news->name_en = $request->name_en;
+        $news->content_en = $request->content_en;
+        $news->content = $request->txtContent;
         $news->mota = $request->txtDesc;
         $news->link = $request->txtLink;
-        $news->content = $request->txtContent;
+        
         $news->photo = $img_name;
 
         $news->com = $com;
@@ -144,10 +147,10 @@ class LienKetController extends Controller
      */
     public function update(Request $request)
     {
-        $this->validate($request,
-            ["txtName" => "required"],
-            ["txtName.required" => "Bạn chưa nhập tên danh mục"]
-        );
+        // $this->validate($request,
+        //     ["txtName" => "required"],
+        //     ["txtName.required" => "Bạn chưa nhập tên danh mục"]
+        // );
         if(!empty($_GET['type'])){
             $com=$_GET['type'];
         }else{
@@ -170,7 +173,10 @@ class LienKetController extends Controller
                     File::delete($img_current);
                 }
             }
+            $news->stt = intval($request->stt);
             $news->name = $request->txtName;
+            $news->name_en = $request->name_en;
+            $news->content_en = $request->content_en;
             $news->link = $request->txtLink;
             $news->mota = $request->txtDesc;
             $news->content = $request->txtContent;

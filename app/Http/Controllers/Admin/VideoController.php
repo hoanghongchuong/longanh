@@ -17,6 +17,8 @@ class VideoController extends Controller
     public function postCreate(Request $request){
         $data = new Video;
         $data->link = $request->link;
+        $data->name = $request->name;
+        $data->name_en = $request->name_en;
         $data->save();
     	return redirect(route('admin.video.index'));
     }
@@ -27,7 +29,8 @@ class VideoController extends Controller
     }
     public function postEdit(Request $request, $id){
     	$data = Video::where('id',$id)->first();
-    	
+        $data->name = $request->name;
+    	$data->name_en = $request->name_en;
     	$data->link = $request->link;
     	$data->save();
     	return redirect(route('admin.video.index'));

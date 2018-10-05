@@ -26,7 +26,7 @@
       			<div class="nav-tabs-custom">
 	                <ul class="nav nav-tabs">
 	                  	<li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">Thông tin chung</a></li>
-	                  	<li><a href="#tab_3" data-toggle="tab" aria-expanded="true">Tiếng anh</a></li>
+	                  	<li><a href="#tab_3" data-toggle="tab" aria-expanded="true">tiếng nhật</a></li>
 	                  	<li><a href="#tab_2" data-toggle="tab" aria-expanded="true">SEO</a></li>
 	                </ul>
 	                <div class="tab-content">
@@ -45,7 +45,7 @@
 								      	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {!! $errors->first('fImages'); !!}</label>
 								      	@endif
 									</div> -->
-						        	<div class="form-group">
+						        	<div class="form-group hidden">
 								      	<label for="ten">Danh mục cha</label>
 								      	<select name="txtNewsCate" class="form-control">
 
@@ -135,15 +135,15 @@
 		                    	</div>
 		                    	<div class="col-md-6 col-xs-12">
 		                    		<div class="form-group">
-								      	<label for="keyword">Title english</label>
+								      	<label for="keyword">Title tiếng nhật</label>
 								      	<input name="title_en" rows="5" class="form-control" value="{!!  isset($data) ? $data->title_en : null !!}" />
 									</div>
 		                    		<div class="form-group">
-								      	<label for="keyword">Keyword english</label>
+								      	<label for="keyword">Keyword tiếng nhật</label>
 								      	<textarea name="keyword_en" rows="5" class="form-control">{!! isset($data) ? $data->keyword_en : null !!}</textarea>
 									</div>
 									<div class="form-group">
-								      	<label for="description">Description english</label>
+								      	<label for="description">Description tiếng nhật</label>
 								      	<textarea name="description_en" rows="5" class="form-control">{!! isset($data) ? $data->description_en : null !!}</textarea>
 									</div>
 		                    	</div>

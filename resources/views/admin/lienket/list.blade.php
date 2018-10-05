@@ -51,9 +51,9 @@
 
                 <th>Tên bài viết</th>
                 
-                
+                @if($_GET['type']!='thong-tin')
                 <th>Hình ảnh</th>
-               
+                @endif
                 <th class="text-center with_dieuhuong">Hoạt động</th>
                 <th class="text-center with_dieuhuong">Sửa</th>
                 <th class="text-center with_dieuhuong">Xóa</th>
@@ -66,9 +66,9 @@
                 <td class="text-center with_dieuhuong">{{$k+1}}</td>
 
                 <td>{{$item->name}}</td>
-               
+                @if($_GET['type']!='thong-tin')
                 <td><img src="{{ asset('upload/hinhanh/'.$item->photo) }}" onerror="this.src='{{ asset('public/admin_assets/images/no-image.jpg') }}';" class="img_product"  alt="NO PHOTO" /></td>
-                
+                @endif
                 <td class="text-center with_dieuhuong">
                   <div class="form-group"> 
                     @if($item->status>0)

@@ -45,7 +45,7 @@
 								      	<input type="text" name="txtCompany" value="{!! old('txtCompany', isset($data) ? $data->company : null) !!}"  class="form-control" />
 									</div>
 									<div class="form-group">
-								      	<label for="ten">Tên công ty(tiếng anh)</label>
+								      	<label for="ten">Tên công ty(tiếng nhật)</label>
 								      	<input type="text" name="txtCompany_en" value="{!! old('txtCompany', isset($data) ? $data->company_en : null) !!}"  class="form-control" />
 									</div>
 									<div class="form-group">
@@ -53,7 +53,7 @@
 								      	<input type="text" name="txtAddress" value="{!! old('txtAddress', isset($data) ? $data->address : null) !!}"  class="form-control" />
 									</div>
 									<div class="form-group">
-								      	<label for="ten">Địa chỉ(tiếng anh)</label>
+								      	<label for="ten">Địa chỉ(tiếng nhật)</label>
 								      	<input type="text" name="txtAddress_en" value="{!! old('txtAddress', isset($data) ? $data->address_en : null) !!}"  class="form-control" />
 									</div>
 									<div class="form-group">
@@ -68,21 +68,21 @@
 								      	<label for="ten">Điện thoại</label>
 								      	<input type="text" name="txtPhone" value="{!! old('txtPhone', isset($data) ? $data->phone : null) !!}"  class="form-control" />
 									</div>
-									<div class="form-group">
+									<!-- <div class="form-group">
 								      	<label for="ten">Hotline</label>
 								      	<input type="text" name="txtHotline" value="{!! old('txtHotline', isset($data) ? $data->hotline : null) !!}"  class="form-control" />
-									</div>
-									<div class="form-group">
+									</div> -->
+									<!-- <div class="form-group">
 								      	<label for="ten">Fax</label>
 								      	<input type="text" name="txtFax" value="{!! old('txtFax', isset($data) ? $data->fax : null) !!}"  class="form-control" />
-									</div>
+									</div> -->
 									<div class="form-group">
 								      	<label for="ten">Slogan</label>
 								      	
 								      	<textarea name="slogan" id="txtContent">{{$data->slogan}}</textarea>
 									</div>
 									<div class="form-group">
-								      	<label for="ten">Slogan(Tiếng anh)</label>
+								      	<label for="ten">Slogan(tiếng nhật)</label>
 								      	
 								      	<textarea name="slogan_en" id="txtContent">{{$data->slogan_en}}</textarea>
 									</div>

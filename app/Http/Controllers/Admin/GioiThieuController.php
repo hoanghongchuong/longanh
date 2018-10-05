@@ -17,7 +17,8 @@ class GioiThieuController extends Controller
 
     	return view('admin.gioithieu.add');
     }
-    public function postAdd(GioithieuRequest $request){
+    public function postAdd(Request $request){
+
         $img = $request->file('fImages');
         $path_img='upload/banner';
         $img_name='';
@@ -49,6 +50,7 @@ class GioiThieuController extends Controller
         }else{
             $data->status = 0;
         }
+        
         $data->save();
     	return redirect()->route('admin.gioithieu.index')->with('status','Thêm thành công');
     }

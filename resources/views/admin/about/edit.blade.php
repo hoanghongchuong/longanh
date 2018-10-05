@@ -26,15 +26,15 @@
       			<div class="nav-tabs-custom">
 	                <ul class="nav nav-tabs">
 	                  	<li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">Thông tin chung</a></li>
-	                  	@if($_GET['type']=='gioi-thieu' || $_GET['type'] == 'chung-chi')
+	                  	
 	                  	<li><a href="#tab_2" data-toggle="tab" aria-expanded="true">SEO</a></li>
-	                  	@endif
+	                  	
 	                </ul>
 	                <div class="tab-content">
 	                  	<div class="tab-pane active" id="tab_1">
 	                  		<div class="row">
 		                  		<div class="col-md-6 col-xs-12">
-		                  			@if($_GET['type']=='gioi-thieu')
+		                  			@if($_GET['type']=='the-manh')
 		                  			<div class="form-group @if ($errors->first('fImages')!='') has-error @endif">
 										<div class="form-group">
 											<img src="{{ asset('upload/hinhanh/'.@$data->photo) }}" onerror="this.src='{{asset('public/admin_assets/images/no-image.jpg')}}'" width="200"  alt="NO PHOTO" />
@@ -48,19 +48,19 @@
 								      	@endif
 									</div>
 									@endif
-									@if($_GET['type']=='gioi-thieu' || $_GET['type']!='dich-vu' || $_GET['type']!='phong')
+									
 							    	<div class="form-group">
 								      	<label for="ten">Tên</label>
 								      	<input type="text" name="txtName" id="txtName" value="{{ @$data->name }}"  class="form-control" />
 									</div>
-									@endif
 									
-									@if($_GET['type']=='gioi-thieu' || $_GET['type']!='dich-vu' || $_GET['type']!='phong')
+									
+									
 							    	<div class="form-group">
-								      	<label for="ten">Tên(tiếng anh)</label>
+								      	<label for="ten">Tên(tiếng nhật)</label>
 								      	<input type="text" name="name_en" id="" value="{{ @$data->name_en }}"  class="form-control" />
 									</div>
-									@endif
+									
 									<!-- <div class="form-group @if ($errors->first('txtAlias')!='') has-error @endif">
 								      	<label for="alias">Đường dẫn tĩnh</label>
 								      	<input type="text" name="txtAlias" id="txtAlias" value="{{ @$data->alias }}"  class="form-control" />
@@ -72,7 +72,7 @@
 								</div>
 								<input type="hidden" name="txtCom" value="{{ old('txtCom', isset($data) ? @$data->com : null) }}">
 								<div class="clearfix"></div>
-								@if($_GET['type']=='dich-vu' || $_GET['type']=='gioi-thieu' || $_GET['type']=='phong')
+								<!-- 
 								<div class="col-md-12 col-xs-12">
 									<div class="box box-info">
 						                <div class="box-header">                                               
@@ -86,11 +86,11 @@
 						        			<textarea name="txtDesc" id="" class="form-control" cols="50" rows="5">{{ @$data->mota }}</textarea>
 						        		</div>
 						        	</div>
-								</div>
-								<div class="col-md-12 col-xs-12">
+								</div> -->
+								<!-- <div class="col-md-12 col-xs-12">
 									<div class="box box-info">
 						                <div class="box-header">                                               
-						                  	<h3 class="box-title">Mô tả(tiếng anh)</h3>
+						                  	<h3 class="box-title">Mô tả(tiếng nhật)</h3>
 						                  	<div class="pull-right box-tools">
 							                    <button class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
 							                    <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -101,8 +101,7 @@
 						        		</div>
 						        	</div>
 								</div>
-								@endif
-								@if($_GET['type']=='lien-he')
+								 -->
 								<div class="col-md-12 col-xs-12">
 									<div class="box box-info">
 						                <div class="box-header">                                               
@@ -120,7 +119,7 @@
 								<div class="col-md-12 col-xs-12">
 									<div class="box box-info">
 						                <div class="box-header">                                               
-						                  	<h3 class="box-title">Nội dung(tiếng anh)</h3>
+						                  	<h3 class="box-title">Nội dung(tiếng nhật)</h3>
 						                  	<div class="pull-right box-tools">
 							                    <button class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
 							                    <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -131,7 +130,7 @@
 						        		</div>
 						        	</div>
 								</div>
-								@endif
+								
 							</div>
 							<div class="clearfix"></div>
 	                  	</div><!-- /.tab-pane -->
@@ -141,20 +140,35 @@
 		                    	<div class="col-md-6 col-xs-12">
 		                    		<div class="form-group">
 								      	<label for="title">Title</label>
-								      	<input type="text" name="txtTitle" value="{!! old('txtTitle', isset($data) ? @$data->title : null) !!}"  class="form-control" />
+								      	<input type="text" name="txtTitle" value="{{ $data->title }}"  class="form-control" />
 									</div>
 		                    		<div class="form-group">
 								      	<label for="keyword">Keyword</label>
-								      	<textarea name="txtKeyword" rows="5" class="form-control">{!! old('txtKeyword', isset($data) ? @$data->keyword : null) !!}</textarea>
+								      	<textarea name="txtKeyword" rows="5" class="form-control">{{ $data->keyword }}</textarea>
 									</div>
 									<div class="form-group">
 								      	<label for="description">Description</label>
-								      	<textarea name="txtDescription" rows="5" class="form-control">{!! old('txtDescription', isset($data) ? @$data->description : null) !!}</textarea>
+								      	<textarea name="txtDescription" rows="5" class="form-control">{{ $data->description }}</textarea>
+									</div>
+		                    	</div>
+		                    	<div class="col-md-6 col-xs-12">
+		                    		<div class="form-group">
+								      	<label for="keyword">Title tiếng nhật</label>
+								      	<input name="title_en" rows="5" class="form-control" value="{{ $data->title_en }}" />
+									</div>
+		                    		<div class="form-group">
+								      	<label for="keyword">Keyword tiếng nhật</label>
+								      	<textarea name="keyword_en" rows="5" class="form-control">{!! $data->keyword_en !!}</textarea>
+									</div>
+									<div class="form-group">
+								      	<label for="description">Description tiếng nhật</label>
+								      	<textarea name="description_en" rows="5" class="form-control">{!! $data->description_en !!}</textarea>
 									</div>
 		                    	</div>
 	                    	</div>
 	                    	<div class="clearfix"></div>
 	                	</div>
+
 	                	<div class="form-group">
 						    <label>
 					        	<input type="checkbox" name="status" {!! (!isset($data->status) || $data->status==1)?'checked="checked"':'' !!}> Hiển thị

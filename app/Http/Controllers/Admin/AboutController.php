@@ -57,20 +57,32 @@ class AboutController extends Controller
         return view('admin.about.add', compact('data','trang'));
     }
     public function postAdd(Request $request){
+        $img = $request->file('fImages');
+        $path_img='upload/hinhanh';
+        $img_name='';
+        if(!empty($img)){
+            $img_name=time().'_'.$img->getClientOriginalName();
+            $img->move($path_img,$img_name);
+        }
         $com = $request->txtCom;
         $about = new About;
         $about->name = $request->txtName;
+        $about->name_en = $request->name_en;
         if($request->txtAlias){
             $about->alias = $request->txtAlias;
         }else{
             $about->alias = changeTitle($request->txtName);
         }
+        $about->photo = $img_name;
         $about->mota = $request->txtDesc;
         $about->content = $request->txtContent;
         $about->com= $request->txtCom;
         $about->title = $request->txtTitle;
+        $about->title_en = $request->title_en;
         $about->keyword = $request->txtKeyword;
+        $about->keyword_en = $request->keyword_en;
         $about->description = $request->txtDescription;
+        $about->description_en = $request->description_en;
         $about->save();
         return redirect('backend/about?type='.$com);
     }
@@ -114,8 +126,7 @@ class AboutController extends Controller
     public function update(Request $request)
     {
         if($_GET['type']=='gioi-thieu') $trang='Giới thiệu';
-        else if($_GET['type']=='chung-chi') $trang='Chứng chỉ kĩ thuật';
-        else if($_GET['type']=='bang-gia') $trang='Bảng giá';
+        
         else $trang= 'Bài viết';
 
         if(!empty($_GET['type'])){
@@ -143,10 +154,13 @@ class AboutController extends Controller
             $data->mota = $request->txtDesc;
             $data->mota_en = $request->mota_en;
             $data->title = $request->txtTitle;
+            $data->title_en = $request->title_en;
             $data->content = $request->txtContent;
             $data->content_en = $request->content_en;
             $data->keyword = $request->txtKeyword;
+            $data->keyword_en = $request->keyword_en;
             $data->description = $request->txtDescription;
+            $data->description_en = $request->description_en;
             $data->com = $request->txtCom;
             // $data->status = 1;
             if($request->status=='on'){
